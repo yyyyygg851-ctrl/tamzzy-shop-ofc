@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e8edf5">
+<title>Tamzzy shop — Auto Order</title>
+<style>
+:root{--bg:#e8edf5;--ink:#202b3c;--muted:#68758a;--blue:#4776d7;--blue-dark:#315bb0;--green:#15865d;--red:#c53c50;--shadow:9px 9px 20px #c5cad1,-9px -9px 20px #fff;--inset:inset 5px 5px 10px #c5cad1,inset -5px -5px 10px #fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;overflow-x:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #8eafff;outline-offset:3px}button:active,.tap:active{transform:scale(.97)!important}
+#particles{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.7}
+.app{position:relative;z-index:1}.wrap{width:min(1080px,100%);margin:auto;padding:22px}.neu{background:var(--bg);box-shadow:var(--shadow);border:1px solid #ffffff7a}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:26px;animation:slideDown .65s both}.brand{display:flex;align-items:center;gap:11px;font-size:1.18rem;font-weight:950;letter-spacing:-.5px}.logo{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;box-shadow:var(--shadow);color:var(--blue);font-weight:950;transition:transform .4s}.logo:hover{transform:rotate(-12deg)}.header-actions{display:flex;align-items:center;gap:12px}.cart-button{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border:0;border-radius:14px;background:var(--bg);color:var(--ink);box-shadow:var(--shadow);font-weight:850;transition:transform .2s,box-shadow .2s}.cart-button:hover{transform:translateY(-2px)}.cart-button svg{width:20px;height:20px;stroke:currentColor}.cart-count{position:absolute;top:-7px;right:-6px;min-width:21px;height:21px;padding:0 5px;border-radius:99px;display:grid;place-items:center;background:var(--blue);color:#fff;font-size:.7rem;font-weight:900;border:2px solid var(--bg)}.cart-button.bump{animation:cartBump .45s ease}.btn-icon{width:18px;height:18px;vertical-align:-4px;margin-right:6px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.status{font-size:.8rem;color:var(--muted);padding:9px 13px;border-radius:99px;box-shadow:var(--inset)}.dot{display:inline-block;width:8px;height:8px;background:#30ad79;border-radius:50%;margin-right:7px;box-shadow:0 0 0 4px #30ad791c}
+.hero{padding:clamp(25px,5vw,45px);border-radius:29px;display:grid;grid-template-columns:1.35fr .65fr;gap:25px;align-items:center;position:relative;overflow:hidden;animation:rise .7s .08s both}.eyebrow{color:var(--blue);font-size:.74rem;letter-spacing:2px;font-weight:900;text-transform:uppercase}h1{font-size:clamp(2.5rem,7vw,4.4rem);line-height:.98;letter-spacing:-3px;margin:13px 0 17px}h1 span{color:var(--blue)}.hero p{color:var(--muted);max-width:520px;line-height:1.75}.hero-art{height:190px;border-radius:25px;box-shadow:var(--inset);display:grid;place-items:center;position:relative}.orbit{position:absolute;width:150px;height:150px;border:1px solid #4776d755;border-radius:50%;animation:spin 17s linear infinite}.orbit:after{content:"";position:absolute;top:15px;right:14px;width:12px;height:12px;border-radius:50%;background:var(--blue)}.cube{width:98px;height:98px;display:grid;place-items:center;border-radius:27px;box-shadow:12px 12px 22px #c5cad1,-12px -12px 22px #fff;color:var(--blue);font-size:2rem;font-weight:950;transform:rotate(-8deg);animation:float 4s ease-in-out infinite}
+.btn{border:0;border-radius:14px;padding:13px 17px;font-weight:850;transition:transform .2s,filter .2s,box-shadow .2s}.btn:hover{transform:translateY(-3px);filter:brightness(1.03)}.btn:focus-visible{outline:3px solid #8eafff;outline-offset:3px}.primary{background:var(--blue);color:white;box-shadow:5px 5px 12px #c5cad1,-4px -4px 10px #fff}.primary:hover{background:var(--blue-dark)}.secondary{background:var(--bg);color:var(--ink);box-shadow:var(--shadow)}.section-head{display:flex;justify-content:space-between;align-items:end;margin:36px 0 17px;gap:12px}.section-head h2,.panel h2{margin:0;font-size:1.45rem;letter-spacing:-.5px}.sub,.muted{color:var(--muted);font-size:.89rem;margin:6px 0 0}.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.product{padding:21px;border-radius:22px;display:flex;flex-direction:column;min-height:250px;transition:transform .25s;animation:rise .6s both}.product:nth-child(2){animation-delay:.1s}.product:nth-child(3){animation-delay:.2s}.product:hover{transform:translateY(-5px)}.prod-icon{width:53px;height:53px;display:grid;place-items:center;border-radius:17px;box-shadow:var(--inset);font-weight:950;color:var(--blue)}.product h3{font-size:1.04rem;margin:17px 0 6px}.desc{color:var(--muted);font-size:.86rem;line-height:1.55;margin:0 0 16px}.price{font-weight:950;font-size:1.2rem;margin-top:auto;margin-bottom:13px}.product .btn{width:100%}
+.view{display:none;animation:pageIn .4s both;min-height:45vh}.view.active{display:block}.back{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px}.panel{padding:clamp(20px,4vw,32px);border-radius:25px}.panel-intro{color:var(--muted);line-height:1.65;font-size:.9rem;margin:8px 0 22px}.order-summary{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px;border-radius:17px;box-shadow:var(--inset);margin-bottom:22px}.order-summary small{display:block;color:var(--muted);font-size:.8rem}.summary-price{font-size:1.15rem;font-weight:950;text-align:right}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:8px}.field.full{grid-column:1/-1}.field label{font-weight:800;font-size:.86rem}.field input,.field select,.field textarea{width:100%;border:0;border-radius:13px;background:var(--bg);box-shadow:var(--inset);padding:14px;color:var(--ink);min-width:0}.field input::placeholder,.field textarea::placeholder{color:#929bab}.field textarea{resize:vertical;min-height:75px}
+.qris-box{margin-top:22px;padding:18px;border-radius:20px;box-shadow:var(--inset)}.qris-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}.qris-head h3{margin:0;font-size:1.02rem}.qris-head p{margin:3px 0 0;color:var(--muted);font-size:.82rem}.notice-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff0cf;color:#986300;font-weight:1000;font-size:1.2rem;box-shadow:3px 3px 8px #d0c9b9,-3px -3px 8px #fff}.warning{display:flex;gap:10px;align-items:flex-start;background:#fff4d9;border:1px solid #f3d68a;color:#72541b;border-radius:13px;padding:12px 13px;font-size:.83rem;line-height:1.5;margin:14px 0}.warning b{font-size:1rem}.qris-placeholder{width:min(230px,100%);aspect-ratio:1;margin:17px auto 12px;border:2px dashed #a9b3c2;border-radius:17px;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted);background:#e5eaf2}.qris-placeholder strong{display:block;color:var(--ink);margin:8px 0 4px}.qris-placeholder small{line-height:1.5}.qris-image-wrap{width:min(280px,100%);margin:17px auto 12px}.qris-image{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;padding:10px;border-radius:17px;box-shadow:var(--shadow)}.qris-image[hidden]{display:none}.qris-placeholder[hidden]{display:none}.qris-status{text-align:center;font-size:.82rem;color:var(--muted)}.payment-links{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}.pay-pill{padding:11px 8px;text-align:center;border-radius:12px;box-shadow:var(--shadow);font-size:.78rem;font-weight:850;color:var(--muted)}.pay-pill span{display:block;color:var(--ink);font-size:.9rem;margin-bottom:2px}.form-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:20px}.form-actions .btn{flex:1;min-width:180px}.hint{font-size:.79rem;color:var(--muted);line-height:1.6;margin:15px 0 0}.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,22px);opacity:0;pointer-events:none;background:#202b3c;color:white;padding:13px 17px;border-radius:14px;box-shadow:0 12px 30px #1b253333;transition:.3s;z-index:20;width:max-content;max-width:calc(100% - 30px);font-size:.88rem;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.hidden{display:none!important}footer{text-align:center;color:var(--muted);font-size:.82rem;padding:28px 0 10px}.reveal{opacity:1;transform:none;transition:opacity .65s,transform .65s}.reveal.visible{opacity:1;transform:none}
+.payment-guide{margin-top:20px;padding:18px;border-radius:19px;box-shadow:var(--inset);animation:rise .6s both}.payment-guide h3{margin:0 0 12px;font-size:1.02rem}.payment-steps{display:grid;gap:11px;counter-reset:paystep}.payment-step{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:14px;background:#ffffff45;transition:transform .2s,background .2s}.payment-step:hover{transform:translateX(3px);background:#ffffff8c}.step-number{flex:0 0 30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--blue);color:#fff;font-weight:900;box-shadow:0 5px 12px #4776d733}.payment-step p{margin:3px 0 0;color:var(--muted);font-size:.84rem;line-height:1.55}.admin-note{animation:noticePulse 2.5s ease-in-out infinite}.proof-button{width:100%;margin-top:14px;animation:softPulse 2.6s ease-in-out infinite}.cancel-payment{width:100%;margin-top:10px;border:1px solid #d6dce7;transition:transform .2s,box-shadow .2s,background .2s}.cancel-payment:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.cancel-payment:focus-visible{outline:3px solid #8eafff;outline-offset:3px}.payment-footnote{font-size:.79rem;line-height:1.6;color:var(--muted);margin:12px 0 0}.payment-step strong{font-size:.9rem}@keyframes cartBump{0%,100%{transform:scale(1)}35%{transform:scale(1.12)}70%{transform:scale(.96)}}@keyframes noticePulse{0%,100%{box-shadow:0 0 0 0 #f3d68a}50%{box-shadow:0 0 0 5px #f3d68a45}}@keyframes softPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.08)}}
+@keyframes rise{from{opacity:0;transform:translateY(19px)}to{opacity:1;transform:translateY(0)}}@keyframes slideDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{box-shadow:var(--shadow)}50%{box-shadow:0 0 0 5px #4776d71b,var(--shadow)}}
+@media(max-width:760px){.wrap{padding:16px}.hero{grid-template-columns:1fr}.hero-art{display:none}.products{grid-template-columns:1fr 1fr}.hero{padding:26px}.panel{padding:21px}.status{font-size:.73rem}.payment-links{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.products{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.payment-links{grid-template-columns:repeat(3,1fr);gap:7px}.pay-pill{font-size:.7rem;padding:9px 4px}.pay-pill span{font-size:.8rem}h1{letter-spacing:-2px}.order-summary{align-items:flex-start}.form-actions{flex-direction:column}.form-actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+
+/* Detail pack: accessibility, motion, cards, status and responsive polish */
+:root{--focus-ring:0 0 0 4px rgba(71,118,215,.2);--glass:rgba(255,255,255,.42);--line:rgba(255,255,255,.7)}
+::selection{background:rgba(71,118,215,.22);color:var(--ink)}
+html{scroll-padding-top:24px}
+body{isolation:isolate}
+button,.btn,a,input,textarea,select{transition:background .22s ease,color .22s ease,box-shadow .22s ease,border-color .22s ease,transform .22s ease,opacity .22s ease}
+button:focus-visible,.btn:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{box-shadow:var(--focus-ring)}
+.view{animation:viewIn .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.product{position:relative;overflow:hidden;transform:translateZ(0)}
+.product:before{content:"";position:absolute;inset:-1px;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.35) 48%,transparent 70%);transform:translateX(-130%);pointer-events:none}
+.product:hover:before{animation:shine 1s ease}
+@keyframes shine{to{transform:translateX(130%)}}
+.product:hover{transform:translateY(-4px)}
+.product .prod-icon{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.product:hover .prod-icon{transform:rotate(-5deg) scale(1.05)}
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-120%);pointer-events:none}
+.btn:hover:after{transform:translateX(120%);transition:transform .55s ease}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+.cart-count{font-variant-numeric:tabular-nums;min-width:1.45rem}
+.cart-count.pulse{animation:countPulse .35s ease}
+@keyframes countPulse{50%{transform:scale(1.3)}}
+.detail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:26px 0}
+.detail-card{padding:22px;border-radius:22px;background:var(--bg);box-shadow:var(--shadow);min-width:0}
+.detail-card .detail-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:var(--bg);box-shadow:var(--inset);font-weight:800;color:var(--blue);margin-bottom:14px}
+.detail-card h3{font-size:1.02rem;margin:0 0 8px}
+.detail-card p{font-size:.93rem;line-height:1.65;color:var(--muted);margin:0}
+.faq-section{margin:34px 0 20px}
+.faq-section h2{margin-bottom:8px}
+.faq-list{display:grid;gap:12px;margin-top:18px}
+.faq-item{border-radius:18px;background:var(--bg);box-shadow:var(--shadow);overflow:hidden}
+.faq-question{width:100%;border:0;background:transparent;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;padding:18px 20px;font-weight:750}
+.faq-question .faq-plus{font-size:1.4rem;color:var(--blue);transition:transform .25s ease}
+.faq-question[aria-expanded="true"] .faq-plus{transform:rotate(45deg)}
+.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.faq-answer>div{overflow:hidden}
+.faq-answer p{margin:0;padding:0 20px 18px;color:var(--muted);line-height:1.7}
+.faq-item.open .faq-answer{grid-template-rows:1fr}
+.trust-row{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.trust-chip{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border-radius:999px;background:var(--bg);box-shadow:var(--inset);font-size:.84rem;color:var(--muted)}
+.trust-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(21,134,93,.1)}
+.catalog-notice{border-radius:18px;padding:16px 18px;margin:20px 0;background:rgba(71,118,215,.07);border:1px solid rgba(71,118,215,.12);display:flex;gap:12px;align-items:flex-start}
+.catalog-notice strong{display:block;margin-bottom:4px}
+.catalog-notice p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem}
+.progress-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
+.progress-step{padding:10px 8px;text-align:center;border-radius:13px;background:rgba(255,255,255,.35);color:var(--muted);font-size:.8rem;font-weight:700}
+.progress-step.active{background:rgba(71,118,215,.13);color:var(--blue)}
+.order-summary{animation:softIn .35s ease both}
+@keyframes softIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.qris-image{max-width:100%;height:auto;object-fit:contain}
+.payment-guide{scroll-margin-top:20px}
+.payment-step{transition:transform .2s ease,box-shadow .2s ease}
+.payment-step:hover{transform:translateY(-2px)}
+.payment-step p{overflow-wrap:anywhere}
+.field input,.field textarea,.field select{width:100%;min-width:0}
+.field input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 3px rgba(197,60,80,.1)}
+.inline-error{display:none;color:var(--red);font-size:.82rem;margin-top:6px}
+.inline-error.show{display:block}
+#toast{max-width:min(92vw,440px);line-height:1.45;box-shadow:0 12px 34px rgba(32,43,60,.22)}
+.footer-detail{padding:12px 0 26px;text-align:center;color:var(--muted);font-size:.86rem}
+.footer-detail a{color:var(--blue);text-decoration:none}
+@media(max-width:760px){.detail-grid{grid-template-columns:1fr;gap:12px}.detail-card{padding:18px}.faq-question{padding:16px}.faq-answer p{padding:0 16px 16px}.progress-step{font-size:.72rem}.trust-row{gap:8px}}
+@media(min-width:761px) and (max-width:1020px){.detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+</style>
+</head>
+<body>
+<canvas id="particles" aria-hidden="true"></canvas>
+<div class="app">
+<div class="wrap">
+<header class="topbar">
+  <a href="#" class="brand" id="brandHome"><span class="logo">T</span><span>Tamzzy shop</span></a>
+  <div class="header-actions">
+    <button type="button" class="cart-button" id="cartBtn" aria-label="Keranjang belanja">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span>Keranjang</span><span class="cart-count" id="cartCount">0</span>
+    </button>
+    <div class="status"><span class="dot"></span>Layanan digital</div>
+  </div>
+</header>
+
+<main>
+<section id="catalogView" class="view active">
+  <div class="hero neu">
+    <div><div class="eyebrow">Digital store · Auto order</div><h1>Welcome to<br><span>Tamzzy shop.</span></h1>
+    <p>Pilih produk digital, isi data pembeli, lalu lanjutkan konfirmasi pesanan melalui WhatsApp. Tampilan lembut Neumorphism dengan animasi interaktif.</p>
+    <button class="btn primary" id="jumpProducts">Lihat produk</button></div>
+    <div class="hero-art" aria-hidden="true"><div class="orbit"></div><div class="cube">T</div></div>
+  </div>
+  <div class="section-head" id="productsHeading"><div><h2>Katalog produk</h2><p class="sub">Tekan “Beli sekarang” untuk membuka halaman data pembeli.</p></div></div>
+  <div class="products">
+    <article class="product neu"><div class="prod-icon">AM</div><h3>Alight Motion Premium</h3><p class="desc">Produk digital untuk kebutuhan editing video.</p><div class="price">Rp5.000</div><button class="btn primary buy" data-product="Alight Motion Premium" data-price="5000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
+    <article class="product neu"><div class="prod-icon">SC</div><h3>Script Alight Motion Premium (Bot)</h3><p class="desc">Script bot sesuai detail produk yang tersedia.</p><div class="price">Rp10.000</div><button class="btn primary buy" data-product="Script Alight Motion Premium (Bot)" data-price="10000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
+    <article class="product neu"><div class="prod-icon">BOT</div><h3>Akses Premium Bot Telegram</h3><p class="desc">Akses premium bot Telegram Tamzzy.</p><div class="price">Rp7.000</div><button class="btn primary buy" data-product="Akses Premium Bot Telegram Tamzzy" data-price="7000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
+  </div>
+
+  <div class="catalog-notice">
+    <div class="notice-icon" aria-hidden="true">!</div>
+    <div><strong>Informasi sebelum memesan</strong><p>Pastikan produk dan nominal sudah sesuai. Pembayaran dilakukan hanya melalui QRIS resmi toko. Jika QRIS belum tampil atau nama merchant berbeda, jangan lanjut membayar dan hubungi admin.</p></div>
+  </div>
+  <div class="trust-row" aria-label="Informasi layanan">
+    <span class="trust-chip"><span class="dot"></span> Layanan digital</span>
+    <span class="trust-chip"><span class="dot"></span> Checkout sederhana</span>
+    <span class="trust-chip"><span class="dot"></span> Konfirmasi admin</span>
+  </div>
+  <div class="detail-grid">
+    <article class="detail-card"><div class="detail-icon">01</div><h3>Pilih produk</h3><p>Pilih layanan yang dibutuhkan. Harga yang tampil menjadi nominal referensi pesanan dan akan ikut dicantumkan pada pesan WhatsApp.</p></article>
+    <article class="detail-card"><div class="detail-icon">02</div><h3>Lengkapi data</h3><p>Masukkan nama, email, dan nomor WhatsApp yang aktif agar admin dapat menghubungi kamu jika ada pertanyaan tentang pesanan.</p></article>
+    <article class="detail-card"><div class="detail-icon">03</div><h3>Bayar dan konfirmasi</h3><p>Periksa QRIS dan nama merchant sebelum membayar. Setelah transaksi berhasil, kirim screenshot bukti ke admin melalui WhatsApp.</p></article>
+  </div>
+  <section class="faq-section" aria-labelledby="faqHeading">
+    <h2 id="faqHeading">Pertanyaan umum</h2>
+    <p class="sub">Informasi singkat sebelum melakukan pemesanan.</p>
+    <div class="faq-list">
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Bagaimana cara memesan produk?</span><span class="faq-plus" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Tekan tombol Beli sekarang pada produk pilihan. Isi data pembeli, lanjut ke pembayaran, periksa QRIS, lalu kirim bukti transaksi kepada admin.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Aplikasi apa saja yang bisa digunakan?</span><span class="faq-plus" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Gunakan aplikasi pembayaran yang mendukung QRIS, misalnya GoPay, DANA, atau mobile banking. Ketersediaan fitur bergantung pada aplikasi dan akun yang kamu gunakan.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Kenapa QRIS belum terlihat?</span><span class="faq-plus" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Admin perlu meletakkan gambar QRIS resmi dengan nama qris.jpg di folder yang sama dengan index.html. Jangan membayar melalui QRIS yang tidak bisa diverifikasi.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Apakah bukti pembayaran terkirim otomatis?</span><span class="faq-plus" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Tidak. Tombol WhatsApp hanya membuka chat dengan teks pesanan yang sudah disiapkan. Lampirkan screenshot bukti pembayaran sendiri di chat, lalu tekan kirim.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Bagaimana kalau admin lambat merespons?</span><span class="faq-plus" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Kalau admin slow response berarti sedang sibuk. Mohon tunggu dengan sabar dan hindari mengirim pesan berulang. Pesanan diproses setelah pembayaran diperiksa admin.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Apakah website memverifikasi pembayaran otomatis?</span><span class="faq-plus" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Belum. Versi ini menggunakan konfirmasi manual oleh admin. Jangan menganggap pesanan selesai sebelum admin memeriksa pembayaran dan mengonfirmasi pesanan.</p></div></div></article>
+    </div>
+  </section>
+
+</section>
+
+<section id="checkoutView" class="view">
+  <button class="btn secondary back" id="backBtn">← Kembali ke katalog</button>
+  <div class="neu panel">
+    <div class="eyebrow">Checkout · Tamzzy shop</div><h2>Data pembeli</h2>
+    <p class="panel-intro">Lengkapi data pembeli terlebih dahulu. Setelah menekan tombol lanjut, halaman pembayaran QRIS akan ditampilkan di tahap berikutnya.</p>
+    <div class="order-summary"><div><small>Produk dipilih</small><strong id="summaryProduct">Belum memilih produk</strong></div><div class="summary-price" id="summaryPrice">—</div></div>
+    <form id="checkoutForm">
+      <div class="form-grid" id="buyerFields">
+        <div class="field full"><label for="fullName">Nama lengkap *</label><input id="fullName" name="fullName" autocomplete="name" placeholder="Masukkan nama lengkap" maxlength="80" required></div>
+        <div class="field"><label for="buyerPhone">Nomor WhatsApp *</label><input id="buyerPhone" name="buyerPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" maxlength="20" required></div>
+        <div class="field"><label for="buyerEmail">Email *</label><input id="buyerEmail" name="buyerEmail" type="email" autocomplete="email" placeholder="nama@email.com" maxlength="100" required></div>
+        <div class="field full"><label for="buyerNote">Catatan pesanan (opsional)</label><textarea id="buyerNote" name="buyerNote" placeholder="Tulis catatan jika ada" maxlength="400"></textarea></div>
+      </div>
+      <div class="qris-box hidden" id="paymentStage">
+        <div class="qris-head"><span class="notice-icon">!</span><div><h3>QRIS · All Payments</h3><p>Bagian pembayaran semua e-wallet / mobile banking yang mendukung QRIS</p></div></div>
+        <div class="warning"><b>!</b><div><strong>Belum ada QRIS asli.</strong> Admin harus memasang gambar QRIS resmi terlebih dahulu. Jangan gunakan gambar QR palsu atau melakukan pembayaran sebelum admin mengonfirmasi.</div></div>
+        <div class="qris-image-wrap">
+          <img class="qris-image" src="qris.jpg" alt="QRIS pembayaran Tamzzy shop"
+               onerror="this.hidden=true;document.getElementById('qrisMissing').hidden=false">
+          <div class="qris-placeholder" id="qrisMissing" hidden><div><span class="notice-icon">!</span><strong>qris.jpg belum ditemukan</strong><small>Letakkan file qris.jpg di folder yang sama dengan index.html.</small></div></div>
+        </div>
+        <div class="qris-status">Pastikan nama file tepat: qris.jpg · gunakan QRIS resmi milik toko</div>
+        <div class="payment-links">
+          <div class="pay-pill"><span>GoPay</span>Scan QRIS</div>
+          <div class="pay-pill"><span>DANA</span>Scan QRIS</div>
+          <div class="pay-pill"><span>Lainnya</span>QRIS / m-banking</div>
+        </div>
+        <div class="payment-guide">
+          <h3>Cara pembayaran dan kirim bukti</h3>
+          <div class="payment-steps">
+            <div class="payment-step"><span class="step-number">1</span><div><strong>Simpan screenshot QRIS</strong><p>Screenshot gambar QRIS di atas atau simpan gambarnya ke galeri. Pastikan QRIS asli milik Tamzzy shop.</p></div></div>
+            <div class="payment-step"><span class="step-number">2</span><div><strong>Buka aplikasi pembayaran</strong><p>Buka GoPay, DANA, atau aplikasi bank yang mendukung QRIS. Pilih menu scan QRIS; jika perlu, gunakan fitur scan dari galeri. Periksa nama merchant dan nominal sebelum membayar.</p></div></div>
+            <div class="payment-step"><span class="step-number">3</span><div><strong>Screenshot bukti berhasil</strong><p>Setelah pembayaran sukses, screenshot halaman bukti transaksi dari aplikasi. Jangan pernah kirim PIN atau kode OTP.</p></div></div>
+            <div class="payment-step"><span class="step-number">4</span><div><strong>Kirim bukti ke admin WhatsApp</strong><p>Tekan tombol di bawah untuk membuka chat admin. Lampirkan screenshot bukti pembayaran secara manual di WhatsApp, lalu tekan kirim.</p></div></div>
+          </div>
+          <div class="warning admin-note"><b>!</b><div><strong>Pemberitahuan:</strong> Kalau admin slow response, berarti admin sedang sibuk. Mohon tunggu dan jangan spam chat. Pesanan diproses setelah pembayaran diperiksa admin.</div></div>
+          <button type="button" class="btn primary proof-button" id="proofBtn">Kirim bukti pembayaran ke admin</button>
+          <button type="button" class="btn secondary cancel-payment" id="cancelPaymentBtn">Batalkan pembelian</button>
+          <p class="payment-footnote">Tombol ini membuka WhatsApp saja, tidak mengirim gambar secara otomatis. Kamu harus memilih dan mengirim screenshot bukti sendiri. Jangan bayar jika QRIS belum tampil atau nama merchant tidak sesuai.</p>
+        </div>
+      </div>
+      <div class="form-actions" id="buyerActions"><button type="submit" class="btn primary">Lanjut ke pembayaran</button><button type="button" class="btn secondary" id="cancelBtn">Batal</button></div>
+      <p class="hint" id="buyerHint">Data digunakan untuk menyusun pesanan yang akan kamu kirim ke admin. Jangan masukkan password, PIN, atau kode OTP. Bukti pembayaran hanya dikirim setelah mendapat instruksi resmi.</p>
+    </form>
+  </div>
+</section>
+</main>
+<footer>© <span id="year"></span> Tamzzy shop</footer>
+</div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const WHATSAPP_ADMIN = "6285122688033";
+const $ = (selector) => document.querySelector(selector);
+let selectedProduct = null;
+let cartCount = 0;
+let toastTimer = null;
+function showToast(message) {
+  const toast = $("#toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+}
+function rupiah(amount) {
+  return amount > 0 ? "Rp" + amount.toLocaleString("id-ID") : "Konfirmasi harga";
+}
+function switchView(viewName) {
+  $("#catalogView").classList.toggle("active", viewName === "catalog");
+  $("#checkoutView").classList.toggle("active", viewName === "checkout");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function updateCart() {
+  $("#cartCount").textContent = String(cartCount);
+  const cart = $("#cartBtn");
+  cart.classList.remove("bump");
+  void cart.offsetWidth;
+  cart.classList.add("bump");
+}
+function openCheckout(product, price) {
+  if (!product) { showToast("Produk tidak ditemukan. Coba muat ulang halaman."); return; }
+  selectedProduct = { name: product, price: Number(price) || 0 };
+  cartCount = 1;
+  updateCart();
+  $("#summaryProduct").textContent = selectedProduct.name;
+  $("#summaryPrice").textContent = rupiah(selectedProduct.price);
+  $("#buyerFields").classList.remove("hidden");
+  $("#buyerActions").classList.remove("hidden");
+  $("#buyerHint").classList.remove("hidden");
+  $("#paymentStage").classList.add("hidden");
+  $(".panel-intro").textContent = "Isi data pembeli, lalu tekan Lanjut ke pembayaran untuk melihat QRIS dan panduannya.";
+  switchView("checkout");
+  setTimeout(() => $("#fullName").focus({ preventScroll: true }), 350);
+}
+function openCatalog() { switchView("catalog"); }
+function cancelPurchase() {
+  const confirmed = window.confirm("Batalkan pembelian ini? Data checkout akan dikosongkan dan kamu akan kembali ke katalog.");
+  if (!confirmed) return;
+  const form = $("#checkoutForm");
+  form?.reset();
+  cartCount = 0;
+  selectedProduct = null;
+  updateCart();
+  $("#buyerFields").classList.remove("hidden");
+  $("#buyerActions").classList.remove("hidden");
+  $("#buyerHint").classList.remove("hidden");
+  $("#paymentStage").classList.add("hidden");
+  $(".panel-intro").textContent = "Lengkapi data pembeli terlebih dahulu. Setelah menekan tombol lanjut, halaman pembayaran QRIS akan ditampilkan di tahap berikutnya.";
+  $("#summaryProduct").textContent = "Belum memilih produk";
+  $("#summaryPrice").textContent = "—";
+  openCatalog();
+  showToast("Pembelian dibatalkan. Kamu kembali ke katalog.");
+}
+function openWhatsApp(message) {
+  const url = "https://wa.me/" + WHATSAPP_ADMIN + "?text=" + encodeURIComponent(message);
+  const opened = window.open(url, "_blank", "noopener,noreferrer");
+  if (!opened) window.location.href = url;
+}
+$("#year").textContent = new Date().getFullYear();
+// Buy buttons: delegated click handling is robust even if cards are updated later.
+document.addEventListener("click", (event) => {
+  const button = event.target.closest(".buy");
+  if (!button) return;
+  event.preventDefault();
+  openCheckout(button.dataset.product, button.dataset.price);
+});
+$("#cartBtn").addEventListener("click", () => {
+  if (selectedProduct) switchView("checkout");
+  else { $("#productsHeading").scrollIntoView({ behavior: "smooth", block: "start" }); showToast("Keranjang masih kosong. Pilih produk terlebih dahulu."); }
+});
+$("#backBtn").addEventListener("click", openCatalog);
+$("#cancelBtn").addEventListener("click", cancelPurchase);
+$("#cancelPaymentBtn").addEventListener("click", cancelPurchase);
+$("#brandHome").addEventListener("click", (event) => { event.preventDefault(); openCatalog(); });
+$("#jumpProducts").addEventListener("click", () => $("#productsHeading").scrollIntoView({ behavior: "smooth", block: "start" }));
+$("#checkoutForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!selectedProduct) { showToast("Pilih produk dari katalog terlebih dahulu."); return; }
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  $("#buyerFields").classList.add("hidden");
+  $("#buyerActions").classList.add("hidden");
+  $("#buyerHint").classList.add("hidden");
+  $("#paymentStage").classList.remove("hidden");
+  $(".panel-intro").textContent = "Periksa QRIS dan pastikan nama merchant serta nominal sudah benar sebelum membayar.";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  showToast("Halaman pembayaran berhasil dibuka.");
+});
+$("#editDataBtn")?.addEventListener("click", () => {
+  $("#buyerFields").classList.remove("hidden");
+  $("#buyerActions").classList.remove("hidden");
+  $("#buyerHint").classList.remove("hidden");
+  $("#paymentStage").classList.add("hidden");
+  $(".panel-intro").textContent = "Isi data pembeli, lalu tekan Lanjut ke pembayaran untuk melihat QRIS dan panduannya.";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+$("#proofBtn").addEventListener("click", () => {
+  if (!selectedProduct) { showToast("Pilih produk terlebih dahulu."); return; }
+  const message = "Halo Admin Tamzzy shop, saya ingin mengirim bukti pembayaran.\nNama: " + $("#fullName").value.trim() + "\nProduk: " + selectedProduct.name + "\nNominal: " + rupiah(selectedProduct.price) + "\nSaya akan melampirkan screenshot bukti transaksi di chat ini.";
+  openWhatsApp(message);
+  showToast("Lampirkan screenshot bukti secara manual di WhatsApp.");
+});
+
+// FAQ accordion and checkout state polish.
+document.querySelectorAll(".faq-question").forEach((button) => {
+  button.addEventListener("click", () => {
+    const item = button.closest(".faq-item");
+    const wasOpen = item.classList.contains("open");
+    document.querySelectorAll(".faq-item.open").forEach((openItem) => {
+      openItem.classList.remove("open");
+      openItem.querySelector(".faq-question")?.setAttribute("aria-expanded", "false");
+    });
+    if (!wasOpen) {
+      item.classList.add("open");
+      button.setAttribute("aria-expanded", "true");
+    }
+  });
+});
+// Add a small accessible checkout progress indicator inside the checkout panel.
+(() => {
+  const panel = document.querySelector("#checkoutView .panel");
+  const intro = panel?.querySelector(".panel-intro");
+  if (!panel || !intro || document.querySelector("#checkoutProgress")) return;
+  const progress = document.createElement("div");
+  progress.id = "checkoutProgress";
+  progress.className = "progress-steps";
+  progress.setAttribute("aria-label", "Tahapan pemesanan");
+  progress.innerHTML = '<div class="progress-step active" data-step="1">1. Data pembeli</div><div class="progress-step" data-step="2">2. Pembayaran</div><div class="progress-step" data-step="3">3. Konfirmasi</div>';
+  intro.insertAdjacentElement("afterend", progress);
+  const setStep = (step) => {
+    progress.querySelectorAll(".progress-step").forEach((el) => {
+      const active = Number(el.dataset.step) === step;
+      el.classList.toggle("active", active);
+      if (active) el.setAttribute("aria-current", "step");
+      else el.removeAttribute("aria-current");
+    });
+  };
+  const originalOpenCheckout = openCheckout;
+  // Keep the indicator synchronized with the existing view state.
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".buy")) setStep(1);
+    if (event.target.closest("#editDataBtn")) setStep(1);
+    if (event.target.closest("#proofBtn")) setStep(3);
+  });
+  document.querySelector("#checkoutForm")?.addEventListener("submit", () => setStep(2));
+  document.querySelector("#backBtn")?.addEventListener("click", () => setStep(1));
+  document.querySelector("#cancelBtn")?.addEventListener("click", () => setStep(1));
+  document.querySelector("#cancelPaymentBtn")?.addEventListener("click", () => setStep(1));
+})();
+
+// Ambient particles and touch burst effects.
+(() => {
+  const canvas = $("#particles");
+  const ctx = canvas?.getContext("2d");
+  if (!canvas || !ctx) return;
+  let width = 0, height = 0, dpr = 1, particles = [];
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const pointer = { x: -1000, y: -1000 };
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2); width = innerWidth; height = innerHeight;
+    canvas.width = Math.floor(width * dpr); canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + "px"; canvas.style.height = height + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    particles = reduced ? [] : Array.from({ length: Math.min(55, Math.floor(width / 18)) }, () => ({ x: Math.random()*width, y: Math.random()*height, vx:(Math.random()-.5)*.32, vy:(Math.random()-.5)*.32, r:Math.random()*2+1, a:Math.random()*.28+.1 }));
+  }
+  function burst(x, y) {
+    if (reduced) return;
+    for (let i=0;i<12;i++) { const angle=Math.PI*2*i/12, speed=Math.random()*1.6+.5; particles.push({ x, y, vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed, r:Math.random()*2+1, a:.7, life:1, burst:true }); }
+    if (particles.length > 130) particles = particles.slice(-130);
+  }
+  function frame() {
+    ctx.clearRect(0,0,width,height);
+    particles.forEach((p, i) => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.burst) { p.life -= .018; p.a = p.life*.7; p.vx *= .99; p.vy *= .99; }
+      else { if(p.x<0)p.x=width; if(p.x>width)p.x=0; if(p.y<0)p.y=height; if(p.y>height)p.y=0; }
+      if (p.burst && p.life <= 0) return;
+      const dx=p.x-pointer.x, dy=p.y-pointer.y, dist=Math.hypot(dx,dy);
+      if (dist<75 && dist>0) { p.x += dx/dist*.25; p.y += dy/dist*.25; }
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=`rgba(71,118,215,${Math.max(0,p.a)})`; ctx.fill();
+      if (i%3===0 && particles[i+1]) { const q=particles[i+1], d=Math.hypot(p.x-q.x,p.y-q.y); if(d<70){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(71,118,215,${.08*(1-d/70)})`;ctx.stroke();} }
+    });
+    particles = particles.filter(p => !p.burst || p.life > 0);
+    if (!reduced) requestAnimationFrame(frame);
+  }
+  addEventListener("resize", resize, { passive:true });
+  addEventListener("pointermove", e => { pointer.x=e.clientX; pointer.y=e.clientY; }, { passive:true });
+  addEventListener("pointerleave", () => { pointer.x=-1000; pointer.y=-1000; }, { passive:true });
+  addEventListener("pointerdown", e => burst(e.clientX,e.clientY), { passive:true });
+  resize(); frame();
+})();
+</script>
+</body>
+</html>
