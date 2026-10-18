@@ -66,15 +66,13 @@ button:focus-visible,.btn:focus-visible,a:focus-visible,input:focus-visible,text
 .catalog-notice{border-radius:18px;padding:16px 18px;margin:20px 0;background:rgba(71,118,215,.07);border:1px solid rgba(71,118,215,.12);display:flex;gap:12px;align-items:flex-start}
 .catalog-notice strong{display:block;margin-bottom:4px}
  .catalog-notice p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem}
-/* Announcement marquee: duplicated track loops seamlessly from right to left. */
-#ownerAnnouncementBanner{display:block;min-width:0;overflow:hidden;border:1px solid rgba(71,118,215,.42);box-shadow:0 0 0 3px rgba(71,118,215,.06),0 8px 24px rgba(71,118,215,.10);}
-#ownerAnnouncementBanner strong{display:block;margin-bottom:9px;}
-#ownerAnnouncementBanner .announcement-window{display:flex;overflow:hidden;width:100%;min-width:0;}
-#ownerAnnouncementBanner .announcement-track{display:flex;flex:0 0 auto;width:max-content;animation:ownerAnnouncementMarquee 18s linear infinite;will-change:transform;}
-#ownerAnnouncementBanner .announcement-track span{display:block;flex:0 0 auto;white-space:nowrap;padding-right:3rem;color:var(--muted);line-height:1.55;font-size:.92rem;}
-#ownerAnnouncementBanner:hover .announcement-track{animation-play-state:paused;}
-@keyframes ownerAnnouncementMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media(prefers-reduced-motion:reduce){#ownerAnnouncementBanner .announcement-track{animation:none;flex-wrap:wrap;width:100%;}#ownerAnnouncementBanner .announcement-track span{white-space:normal;padding-right:0;}#ownerAnnouncementBanner .announcement-track span[aria-hidden="true"]{display:none;}}
+/* Owner announcement: bordered marquee with text moving from right to left. */
+#ownerAnnouncementBanner{display:block;position:relative;overflow:hidden;border:1px solid rgba(71,118,215,.42);box-shadow:0 0 0 3px rgba(71,118,215,.06),0 8px 24px rgba(71,118,215,.10);}
+#ownerAnnouncementBanner strong{margin-bottom:8px;position:relative;z-index:1;}
+#ownerAnnouncementBanner p{display:block;width:max-content;max-width:none;white-space:nowrap;padding-left:100%;animation:ownerAnnouncementMarquee 16s linear infinite;will-change:transform;}
+#ownerAnnouncementBanner:hover p{animation-play-state:paused;}
+@keyframes ownerAnnouncementMarquee{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+@media(prefers-reduced-motion:reduce){#ownerAnnouncementBanner p{animation:none;white-space:normal;width:auto;padding-left:0;}}
 .progress-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
 .progress-step{padding:10px 8px;text-align:center;border-radius:13px;background:rgba(255,255,255,.35);color:var(--muted);font-size:.8rem;font-weight:700}
 .progress-step.active{background:rgba(71,118,215,.13);color:var(--blue)}
@@ -230,11 +228,12 @@ button:focus-visible,.btn:focus-visible,a:focus-visible,input:focus-visible,text
 <footer>© <span id="year"></span> Tamzzy shop · <button class="owner-link" type="button" id="ownerOpenBtn">Command Owner</button></footer>
 <section id="ownerPanel" class="owner-panel neu owner-hidden" aria-labelledby="ownerTitle">
   <div class="owner-locked" id="ownerLogin">
-    <div class="eyebrow">Owner tools</div><h2 id="ownerTitle">Command Owner</h2><p class="sub">Masukkan kode owner untuk membuka panel pengelolaan toko.</p>
-    <form id="ownerLoginForm"><label class="owner-field">Kode owner<input id="ownerPin" type="password" autocomplete="current-password" placeholder="Kode akses" required></label><div class="owner-actions" style="margin-top:12px"><button class="btn primary" type="submit">Buka panel</button><button class="btn secondary" type="button" id="ownerCloseLogin">Tutup</button></div></form>
-    <div class="owner-state">Akses owner dibatasi. Jangan bagikan kode akses kepada orang lain.</div>
+    <div class="eyebrow">Owner tools</div><h2 id="ownerTitle">Command Owner</h2><p class="sub">Login dengan akun admin Firebase untuk membuka panel pengelolaan toko.</p>
+    <form id="ownerLoginForm"><label class="owner-field">Email admin<input id="ownerEmail" type="email" autocomplete="username" placeholder="Email admin Firebase" required></label>
+      <label class="owner-field">Password admin<input id="ownerPassword" type="password" autocomplete="current-password" placeholder="Password akun Firebase" required></label><div class="owner-actions" style="margin-top:12px"><button class="btn primary" type="submit">Buka panel</button><button class="btn secondary" type="button" id="ownerCloseLogin">Tutup</button></div></form>
+    <div class="owner-state">Akses panel menggunakan Firebase Authentication. Jangan bagikan password admin.</div>
   </div>
-  <div id="ownerDashboard" class="owner-hidden"><div class="eyebrow">Tamzzy shop · Owner dashboard</div><h2>Panel pengelolaan toko</h2><p class="sub">Perubahan disimpan di browser perangkat ini dan tidak otomatis tersinkron ke pengunjung lain.</p>
+  <div id="ownerDashboard" class="owner-hidden"><div class="eyebrow">Tamzzy shop · Owner dashboard</div><h2>Panel pengelolaan toko</h2><p class="sub">Perubahan produk dan pengumuman disimpan ke Cloud Firestore dan tersinkron ke pengunjung lain.</p>
     <div class="owner-grid">
       <label class="owner-field">Nama produk 1<input id="ownerName1" maxlength="90"></label><label class="owner-field">Harga produk 1 (angka rupiah)<input id="ownerPrice1" type="number" min="0" step="500"></label>
       <label class="owner-field">Nama produk 2<input id="ownerName2" maxlength="90"></label><label class="owner-field">Harga produk 2 (angka rupiah)<input id="ownerPrice2" type="number" min="0" step="500"></label>
@@ -243,13 +242,32 @@ button:focus-visible,.btn:focus-visible,a:focus-visible,input:focus-visible,text
     </div>
     <div class="owner-actions"><button class="btn primary" type="button" id="ownerSaveBtn">Simpan perubahan</button><button class="btn secondary" type="button" id="ownerResetBtn">Reset bawaan</button><button class="btn secondary" type="button" id="ownerLogoutBtn">Kunci panel</button></div>
     <div class="owner-state" id="ownerStatus" role="status">Panel siap.</div>
-    <div class="owner-state"><strong>Perhatian:</strong> panel ini hanya mengubah tampilan pada browser yang sedang digunakan. Untuk mengelola toko sungguhan lintas pengunjung, menyimpan pesanan, atau melindungi akses owner, diperlukan backend dan autentikasi server.</div>
+    <div class="owner-state" id="firebaseSyncStatus">Menghubungkan ke Firebase…</div>
   </div>
 </section>
 </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB9emFxXtm6Uj0WDcCWDjQpe4iJX7S6hl4",
+  authDomain: "am-prem-66d03.firebaseapp.com",
+  projectId: "am-prem-66d03",
+  storageBucket: "am-prem-66d03.firebasestorage.app",
+  messagingSenderId: "738662525036",
+  appId: "1:738662525036:web:03ff0a6fc5a29592309049",
+  measurementId: "G-4GFN9Z0W7X"
+};
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+const announcementRef = doc(db, "settings", "announcement");
+let stopAnnouncementListener = null;
+
 const WHATSAPP_ADMIN = "6285122688033";
 const $ = (selector) => document.querySelector(selector);
 let selectedProduct = null;
@@ -409,7 +427,7 @@ document.querySelectorAll(".faq-question").forEach((button) => {
   document.querySelector("#cancelPaymentBtn")?.addEventListener("click", () => setStep(1));
 })();
 
-// Command Owner: local-only demo management panel for this static storefront.
+// Command Owner: Firebase Authentication + Cloud Firestore real-time settings.
 (() => {
   const defaults = [
     {name:'Alight Motion Premium', price:5000},
@@ -419,12 +437,18 @@ document.querySelectorAll(".faq-question").forEach((button) => {
   const panel = $('#ownerPanel');
   const login = $('#ownerLogin');
   const dashboard = $('#ownerDashboard');
-  const storageKey = 'tamzzyShopOwnerSettingsV1';
-  const pinCode = String.fromCharCode(50, 53, 56, 48); // Disamarkan ringan; bukan autentikasi server.
-  function readSettings() {
-    try { const parsed = JSON.parse(localStorage.getItem(storageKey) || 'null'); if (parsed && Array.isArray(parsed.products)) return parsed; } catch (_) {}
-    return {products: defaults.map(x => ({...x})), announcement:''};
+  let currentSettings = {products: defaults.map(x => ({...x})), announcement: ''};
+  let saving = false;
+
+  function normalizeSettings(data) {
+    const products = Array.isArray(data?.products) ? data.products.slice(0, 3).map((item, i) => ({
+      name: String(item?.name || defaults[i].name).slice(0, 90),
+      price: Math.max(0, Number.parseInt(item?.price, 10) || 0)
+    })) : defaults.map(x => ({...x}));
+    while (products.length < 3) products.push({...defaults[products.length]});
+    return {products, announcement: String(data?.message ?? data?.announcement ?? '').slice(0, 350)};
   }
+
   function applySettings(settings) {
     document.querySelectorAll('.product').forEach((card, i) => {
       const item = settings.products[i] || defaults[i];
@@ -437,45 +461,140 @@ document.querySelectorAll(".faq-question").forEach((button) => {
     });
     let banner = $('#ownerAnnouncementBanner');
     if (settings.announcement && settings.announcement.trim()) {
-      if (!banner) { banner = document.createElement('div'); banner.id='ownerAnnouncementBanner'; banner.className='catalog-notice'; $('#productsHeading').insertAdjacentElement('afterend', banner); }
-      const strong = document.createElement('strong'); strong.textContent='Pengumuman Tamzzy shop';
-      const windowEl = document.createElement('div'); windowEl.className='announcement-window';
-      const track = document.createElement('div'); track.className='announcement-track';
-      const first = document.createElement('span'); first.textContent=settings.announcement.trim();
-      const second = document.createElement('span'); second.textContent=settings.announcement.trim(); second.setAttribute('aria-hidden','true');
-      track.append(first, second); windowEl.append(track); banner.replaceChildren(strong,windowEl);
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'ownerAnnouncementBanner';
+        banner.className = 'catalog-notice';
+        $('#productsHeading').insertAdjacentElement('afterend', banner);
+      }
+      const strong = document.createElement('strong'); strong.textContent = 'Pengumuman Tamzzy shop';
+      const p = document.createElement('p'); p.textContent = settings.announcement.trim();
+      banner.replaceChildren(strong, p);
     } else if (banner) banner.remove();
   }
+
   function fillForm(settings) {
-    settings.products.forEach((item,i) => { const n=$('#ownerName'+(i+1)); const pr=$('#ownerPrice'+(i+1)); if(n)n.value=item.name; if(pr)pr.value=item.price; });
+    settings.products.forEach((item, i) => {
+      const n = $('#ownerName' + (i + 1)), pr = $('#ownerPrice' + (i + 1));
+      if (n) n.value = item.name;
+      if (pr) pr.value = item.price;
+    });
     $('#ownerAnnouncement').value = settings.announcement || '';
   }
-  function openPanel() { panel.classList.remove('owner-hidden'); panel.scrollIntoView({behavior:'smooth',block:'start'}); }
-  $('#ownerOpenBtn').addEventListener('click', () => { openPanel(); login.classList.remove('owner-hidden'); dashboard.classList.add('owner-hidden'); $('#ownerPin').focus(); });
+
+  function setStatus(message) {
+    const status = $('#ownerStatus') || $('#firebaseSyncStatus');
+    if (status) status.textContent = message;
+  }
+
+  function openPanel() {
+    panel.classList.remove('owner-hidden');
+    panel.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  $('#ownerOpenBtn').addEventListener('click', () => {
+    openPanel();
+    if (auth.currentUser) {
+      login.classList.add('owner-hidden');
+      dashboard.classList.remove('owner-hidden');
+      fillForm(currentSettings);
+    } else {
+      login.classList.remove('owner-hidden');
+      dashboard.classList.add('owner-hidden');
+      $('#ownerEmail').focus();
+    }
+  });
   $('#ownerCloseLogin').addEventListener('click', () => panel.classList.add('owner-hidden'));
-  $('#ownerLoginForm').addEventListener('submit', event => {
+
+  $('#ownerLoginForm').addEventListener('submit', async event => {
     event.preventDefault();
-    if ($('#ownerPin').value !== pinCode) { showToast('Kode owner salah.'); $('#ownerPin').select(); return; }
-    login.classList.add('owner-hidden'); dashboard.classList.remove('owner-hidden');
-    fillForm(readSettings()); showToast('Panel owner terbuka.');
+    const email = $('#ownerEmail').value.trim();
+    const password = $('#ownerPassword').value;
+    const button = event.submitter;
+    if (button) button.disabled = true;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      login.classList.add('owner-hidden');
+      dashboard.classList.remove('owner-hidden');
+      fillForm(currentSettings);
+      showToast('Login admin berhasil.');
+    } catch (error) {
+      setStatus('Login gagal. Periksa email/password dan pastikan UID akun ini sama dengan UID admin di Rules.');
+      showToast('Login gagal. Periksa akun Firebase.');
+    } finally {
+      if (button) button.disabled = false;
+    }
   });
-  $('#ownerSaveBtn').addEventListener('click', () => {
-    const products = defaults.map((item,i) => ({
-      name: ($('#ownerName'+(i+1)).value.trim() || item.name).slice(0,90),
-      price: Math.max(0, Number.parseInt($('#ownerPrice'+(i+1)).value,10) || 0)
+
+  $('#ownerSaveBtn').addEventListener('click', async () => {
+    if (!auth.currentUser) {
+      setStatus('Login admin diperlukan sebelum menyimpan.');
+      return;
+    }
+    if (saving) return;
+    const products = defaults.map((item, i) => ({
+      name: ($('#ownerName' + (i + 1)).value.trim() || item.name).slice(0, 90),
+      price: Math.max(0, Number.parseInt($('#ownerPrice' + (i + 1)).value, 10) || 0)
     }));
-    const settings = {products, announcement: $('#ownerAnnouncement').value.trim().slice(0,350)};
-    try { localStorage.setItem(storageKey, JSON.stringify(settings)); applySettings(settings); $('#ownerStatus').textContent='Perubahan tersimpan di browser ini.'; showToast('Perubahan tersimpan di perangkat ini.'); }
-    catch (_) { $('#ownerStatus').textContent='Penyimpanan browser tidak tersedia. Perubahan hanya berlaku sementara.'; applySettings(settings); }
+    const announcement = $('#ownerAnnouncement').value.trim().slice(0, 350);
+    saving = true;
+    $('#ownerSaveBtn').disabled = true;
+    setStatus('Menyimpan perubahan ke Cloud Firestore…');
+    try {
+      await setDoc(announcementRef, {message: announcement, products, updatedAt: new Date().toISOString()});
+      currentSettings = {products, announcement};
+      applySettings(currentSettings);
+      setStatus('Berhasil disimpan. Pengumuman dan produk tersinkron ke pengunjung.');
+      showToast('Perubahan tersimpan ke Firebase.');
+    } catch (error) {
+      setStatus('Gagal menyimpan. Pastikan Rules sudah dipublikasikan dan UID akun login cocok dengan UID admin.');
+      showToast('Gagal menyimpan ke Firebase.');
+    } finally {
+      saving = false;
+      $('#ownerSaveBtn').disabled = false;
+    }
   });
-  $('#ownerResetBtn').addEventListener('click', () => {
-    if (!confirm('Reset nama, harga, dan pengumuman ke bawaan?')) return;
-    const settings = {products: defaults.map(x=>({...x})), announcement:''};
-    try { localStorage.removeItem(storageKey); } catch (_) {}
-    fillForm(settings); applySettings(settings); $('#ownerStatus').textContent='Pengaturan bawaan dipulihkan.'; showToast('Pengaturan direset.');
+
+  $('#ownerResetBtn').addEventListener('click', async () => {
+    if (!auth.currentUser) { setStatus('Login admin diperlukan.'); return; }
+    if (!confirm('Reset nama, harga, dan pengumuman ke bawaan untuk semua pengunjung?')) return;
+    fillForm({products: defaults.map(x => ({...x})), announcement: ''});
+    $('#ownerSaveBtn').click();
   });
-  $('#ownerLogoutBtn').addEventListener('click', () => { dashboard.classList.add('owner-hidden'); login.classList.remove('owner-hidden'); $('#ownerPin').value=''; panel.scrollIntoView({behavior:'smooth',block:'start'}); });
-  applySettings(readSettings());
+
+  $('#ownerLogoutBtn').addEventListener('click', async () => {
+    try { await signOut(auth); } catch (_) {}
+    dashboard.classList.add('owner-hidden');
+    login.classList.remove('owner-hidden');
+    $('#ownerPassword').value = '';
+    panel.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  onAuthStateChanged(auth, user => {
+    if (stopAnnouncementListener) { stopAnnouncementListener(); stopAnnouncementListener = null; }
+    if (user) {
+      setStatus('Admin login. Memantau sinkronisasi Firebase…');
+    } else {
+      setStatus('Belum login sebagai admin.');
+    }
+  });
+
+  stopAnnouncementListener = onSnapshot(announcementRef, snapshot => {
+    if (snapshot.exists()) {
+      currentSettings = normalizeSettings(snapshot.data());
+      applySettings(currentSettings);
+      if (auth.currentUser) fillForm(currentSettings);
+    }
+    const sync = $('#firebaseSyncStatus');
+    if (sync) sync.textContent = snapshot.exists()
+      ? 'Firebase tersambung. Pengumuman dan produk diperbarui secara real-time.'
+      : 'Firebase tersambung. Simpan perubahan pertama melalui panel admin untuk membuat pengaturan.';
+  }, error => {
+    const sync = $('#firebaseSyncStatus');
+    if (sync) sync.textContent = 'Belum bisa membaca pengumuman. Periksa Firestore Rules agar dokumen settings/announcement boleh dibaca publik.';
+  });
+
+  applySettings(currentSettings);
 })();
 
 // Ambient particles and touch burst effects.
@@ -521,4 +640,4 @@ document.querySelectorAll(".faq-question").forEach((button) => {
 })();
 </script>
 </body>
-                                             </html>
+</html>
