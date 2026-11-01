@@ -152,6 +152,23 @@ body{background:radial-gradient(ellipse at 12% 0%,#10396b 0,transparent 38%),rad
 @media(prefers-reduced-motion:reduce){.sparkle{animation:none;display:none}.payment-timer.expired{animation:none}}
 
 .promo-overlay{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px;background:rgba(10,18,35,.62);backdrop-filter:blur(5px);animation:promoFade .25s ease both}.promo-overlay[hidden]{display:none}.promo-ad{position:relative;width:min(520px,100%);max-height:calc(100dvh - 36px);overflow:auto;border-radius:20px;background:#08101f;box-shadow:0 24px 80px #0008;animation:promoPop .35s cubic-bezier(.2,.8,.2,1) both}.promo-ad img{display:block;width:100%;height:auto}.promo-follow{display:block;margin:0 16px 16px;padding:14px 18px;border-radius:13px;text-align:center;text-decoration:none;font-weight:900;letter-spacing:.3px;color:#03140d;background:linear-gradient(135deg,#00f58a,#43ffbf);box-shadow:0 0 22px #00f58a55;transition:transform .2s,filter .2s}.promo-follow:hover{transform:translateY(-2px);filter:brightness(1.08)}.promo-close{position:absolute;top:10px;right:10px;width:40px;height:40px;border:1px solid #ffffff70;border-radius:50%;background:#07101ddd;color:#fff;font-size:27px;line-height:1;display:grid;place-items:center;box-shadow:0 4px 18px #0006}.promo-close:hover{background:#182743;transform:rotate(90deg)}@keyframes promoFade{from{opacity:0}to{opacity:1}}@keyframes promoPop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Promo pricing and customer support */
+.price-stack{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;margin-top:auto;margin-bottom:13px}.price-old,.price-new{white-space:normal;overflow-wrap:anywhere}.price-new{font-size:clamp(1rem,4.2vw,1.2rem)}.price-old{color:var(--muted);text-decoration:line-through;font-size:.88rem}.price-new{font-weight:950;font-size:1.2rem;color:#25c98a}.discount-badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#d9fff0;color:#08794d;font-size:.72rem;font-weight:950;border:1px solid #7be6b8}
+
+
+
+/* Floating customer-service launcher */
+.cs-float{position:fixed;left:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:80;width:68px;height:68px;padding:0;border:3px solid #fff;border-radius:50%;background:#fff;box-shadow:0 10px 30px #102b5540,0 0 0 5px #4b8cf52b;display:grid;place-items:center;animation:csBob 3.2s ease-in-out infinite;overflow:hidden}
+.cs-float img{width:100%;height:100%;object-fit:cover;border-radius:50%}.cs-float:hover{transform:translateY(-4px) scale(1.04)}.cs-float:after{content:"CS";position:absolute;right:-1px;bottom:-1px;background:#1c72df;color:#fff;border:2px solid #fff;border-radius:99px;padding:3px 6px;font-size:10px;font-weight:950}
+.cs-pop{position:fixed;left:18px;bottom:calc(98px + env(safe-area-inset-bottom));z-index:79;width:min(365px,calc(100vw - 36px));padding:0;border:1px solid #d8e4f8;border-radius:23px;background:#f6f9ff;color:#202b3c;box-shadow:0 22px 65px #102b5550;transform-origin:bottom left;animation:csPop .2s ease both;overflow:hidden}.cs-pop[hidden]{display:none}
+.cs-pop-head{display:flex;align-items:center;gap:11px;margin:0;padding:16px;background:linear-gradient(120deg,#1268d9,#3a9cf5);color:#fff}.cs-pop-head img{width:44px;height:44px;object-fit:cover;border-radius:50%;background:#fff;border:2px solid #ffffffaa;box-shadow:0 3px 12px #003b8c55}.cs-pop-head strong{display:block;font-size:.96rem;letter-spacing:.1px}.cs-pop-head small{display:block;color:#e1efff;font-size:.74rem;margin-top:3px}.cs-pop-head small:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#64f0b0;margin-right:5px;box-shadow:0 0 0 3px #64f0b033}.cs-pop-head .cs-pop-close{margin-left:auto;flex:0 0 32px;border:1px solid #ffffff55;background:#ffffff20;border-radius:11px;width:32px;height:32px;font-size:22px;color:#fff;transition:background .2s}.cs-pop-head .cs-pop-close:hover{background:#ffffff35}
+.cs-chat-log{height:260px;overflow:auto;display:flex;flex-direction:column;gap:11px;padding:15px 13px 8px;background:linear-gradient(180deg,#f4f8ff,#eef4fd)}.cs-msg{max-width:88%;padding:11px 13px;border-radius:17px;font-size:.86rem;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;box-shadow:0 3px 9px #1e4d8710}.cs-msg.bot{align-self:flex-start;background:#fff;color:#20385b;border:1px solid #e2eafa;border-bottom-left-radius:5px}.cs-msg.user{align-self:flex-end;background:linear-gradient(135deg,#167ce5,#2864d8);color:#fff;border-bottom-right-radius:5px;box-shadow:0 5px 14px #167ce533}
+.cs-suggestions{display:flex;gap:7px;flex-wrap:wrap;margin:0;padding:8px 13px 12px;background:#eef4fd}.cs-suggestions button{font-size:.75rem;border:1px solid #c7d9f5;border-radius:999px;padding:8px 11px;background:#fff;color:#24436b;font-weight:750;transition:all .18s}.cs-suggestions button:hover{background:#e0edff;border-color:#83b4f5;transform:translateY(-1px)}
+.cs-chat-form{display:flex;gap:8px;padding:12px 13px;background:#fff;border-top:1px solid #e4ebf7}.cs-chat-form input{flex:1;min-width:0;border:1px solid #d7e2f3;border-radius:14px;padding:12px 14px;background:#f7faff;color:#20324b;outline:none}.cs-chat-form input:focus{border-color:#5a9ff1;box-shadow:0 0 0 3px #5a9ff122}.cs-chat-form button{width:45px;border:0;border-radius:14px;background:linear-gradient(135deg,#167ce5,#2864d8);color:white;font-size:19px;box-shadow:0 5px 14px #167ce533;transition:transform .18s}.cs-chat-form button:hover{transform:translateY(-2px)}.cs-chat-note{display:block;color:#7b8aa1;padding:0 14px 12px;background:#fff;font-size:.69rem}
+@keyframes csBob{0%,100%{translate:0 0}50%{translate:0 -6px}}@keyframes csPop{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:480px){.cs-float{width:60px;height:60px;left:14px;bottom:calc(14px + env(safe-area-inset-bottom))}.cs-pop{left:14px;bottom:calc(86px + env(safe-area-inset-bottom));width:calc(100vw - 28px)}.cs-chat-log{height:245px}}
+
 </style>
 </head>
 <body>
@@ -176,6 +193,10 @@ body{background:radial-gradient(ellipse at 12% 0%,#10396b 0,transparent 38%),rad
     <div class="status"><span class="dot"></span>Layanan digital</div>
   </div>
 </header>
+<div id="storeHoursNotice" class="catalog-notice" role="status" style="margin:0 0 20px;display:none">
+  <span class="notice-icon">!</span><div><strong id="storeHoursTitle">Toko sedang tutup</strong><p id="storeHoursText" style="margin:5px 0 0;color:var(--muted);line-height:1.5">Jam operasional setiap hari pukul 12.30–06.00 WIB.</p></div>
+</div>
+
 
 <main>
 <section id="catalogView" class="view active">
@@ -185,12 +206,17 @@ body{background:radial-gradient(ellipse at 12% 0%,#10396b 0,transparent 38%),rad
     <button class="btn primary" id="jumpProducts">Lihat produk</button></div>
     <div class="hero-art" aria-hidden="true"><div class="orbit"></div><div class="cube">T</div></div>
   </div>
+  <section id="jakarta-time-widget" aria-label="Jam dan jadwal salat Jakarta">
+ <div class="jt-head"><div><div class="jt-clock" id="jt-clock">--:--:--</div><div class="jt-date" id="jt-date">Memuat tanggal...</div></div><span class="jt-badge">Jakarta · WIB (UTC+7)</span></div>
+ <div class="jt-prayers" id="jt-prayers"><div class="jt-prayer"><strong>Subuh</strong><span>--:--</span></div><div class="jt-prayer"><strong>Zuhur</strong><span>--:--</span></div><div class="jt-prayer"><strong>Asar</strong><span>--:--</span></div><div class="jt-prayer"><strong>Magrib</strong><span>--:--</span></div><div class="jt-prayer"><strong>Isya</strong><span>--:--</span></div></div>
+ <div class="jt-next" id="jt-next">Memuat jadwal salat Jakarta...</div>
+</section>
   <div class="section-head" id="productsHeading"><div><h2>Katalog produk</h2><p class="sub">Pilih produk untuk checkout.</p></div></div>
   <div class="products">
-    <article class="product neu"><div class="prod-icon">AM</div><h3>Alight Motion Premium</h3><p class="desc">Produk digital untuk kebutuhan editing video.</p><div class="price">Rp5.000</div><button class="btn primary buy" data-product="Alight Motion Premium" data-price="5000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
-    <article class="product neu"><div class="prod-icon">SC</div><h3>Script Alight Motion Premium (Bot)</h3><p class="desc">Script bot sesuai detail produk yang tersedia.</p><div class="price">Rp10.000</div><button class="btn primary buy" data-product="Script Alight Motion Premium (Bot)" data-price="10000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
-    <article class="product neu"><div class="prod-icon">BOT</div><h3>Akses Premium Bot Telegram</h3><p class="desc">Akses premium bot Telegram Tamzzy.</p><div class="price">Rp7.000</div><button class="btn primary buy" data-product="Akses Premium Bot Telegram Tamzzy" data-price="7000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
-    <article class="product neu"><div class="prod-icon">AM+</div><h3>Script Bot AM Prem (1 September)</h3><p class="desc">Script bot Alight Motion Premium.</p><div class="price">Rp20.000</div><button class="btn primary buy" data-product="Script Bot AM Prem (1 September)" data-price="20000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
+    <article class="product neu"><div class="prod-icon">AM</div><h3>Alight Motion Premium</h3><p class="desc">Produk digital untuk kebutuhan editing video.</p><div class="price-stack"><span class="price-new">Rp5.000</span><span class="discount-badge">Minta kode promo ke CS</span></div><button class="btn primary buy" data-product="Alight Motion Premium" data-price="5000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
+    <article class="product neu"><div class="prod-icon">SC</div><h3>Script Alight Motion Premium (Bot)</h3><p class="desc">Script bot sesuai detail produk yang tersedia.</p><div class="price-stack"><span class="price-new">Rp10.000</span><span class="discount-badge">Minta kode promo ke CS</span></div><button class="btn primary buy" data-product="Script Alight Motion Premium (Bot)" data-price="10000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
+    <article class="product neu"><div class="prod-icon">BOT</div><h3>Akses Premium Bot Telegram</h3><p class="desc">Akses premium bot Telegram Tamzzy.</p><div class="price-stack"><span class="price-new">Rp7.000</span><span class="discount-badge">Minta kode promo ke CS</span></div><button class="btn primary buy" data-product="Akses Premium Bot Telegram Tamzzy" data-price="7000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
+    <article class="product neu"><div class="prod-icon">AM+</div><h3>Script Bot AM Prem (1 September)</h3><p class="desc">Script bot Alight Motion Premium.</p><div class="price-stack"><span class="price-new">Rp20.000</span><span class="discount-badge">Minta kode promo ke CS</span></div><button class="btn primary buy" data-product="Script Bot AM Prem (1 September)" data-price="20000"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Beli sekarang</button></article>
   </div>
 
   <div class="catalog-notice">
@@ -220,6 +246,7 @@ body{background:radial-gradient(ellipse at 12% 0%,#10396b 0,transparent 38%),rad
     </div>
   </section>
 
+
 </section>
 
 <section id="checkoutView" class="view">
@@ -234,10 +261,10 @@ body{background:radial-gradient(ellipse at 12% 0%,#10396b 0,transparent 38%),rad
         <div class="field"><label for="buyerPhone">Nomor WhatsApp *</label><input id="buyerPhone" name="buyerPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" maxlength="20" required></div>
         <div class="field"><label for="buyerEmail">Email *</label><input id="buyerEmail" name="buyerEmail" type="email" autocomplete="email" placeholder="nama@email.com" maxlength="100" required></div>
         <div class="field full"><label for="buyerNote">Catatan pesanan (opsional)</label><textarea id="buyerNote" name="buyerNote" placeholder="Tulis catatan jika ada" maxlength="400"></textarea></div>
-        <div class="field full promo-field"><label for="promoCode">Kode promo</label><input id="promoCode" name="promoCode" placeholder="Masukkan kode promo" maxlength="40" autocomplete="off"><small class="promo-hint">Kode rahasia tersedia di <a href="https://whatsapp.com/channel/0029VbDqU7ILdQeWB5k2342w" target="_blank" rel="noopener">saluran WhatsApp Tamzzy Shop</a>.</small><small id="promoStatus" aria-live="polite"></small></div>
+        <div class="field full promo-field"><label for="promoCode">Kode promo</label><input id="promoCode" name="promoCode" placeholder="Masukkan kode promo untuk diskon 10%" maxlength="40" autocomplete="off"><small class="promo-hint">Kode rahasia tersedia di <a href="https://whatsapp.com/channel/0029VbDqU7ILdQeWB5k2342w" target="_blank" rel="noopener">saluran WhatsApp Tamzzy Shop</a>.</small><small id="promoStatus" aria-live="polite"></small></div>
       </div>
       <div class="qris-box hidden" id="paymentStage">
-        <div class="qris-head"><span class="notice-icon">!</span><div><h3>QRIS · All Payments</h3><p>Bagian pembayaran semua e-wallet / mobile banking yang mendukung QRIS</p></div></div>
+        <div class="qris-head"><span class="notice-icon">!</span><div><h3>QRIS · All Payments</h3><p>Bagian pembayaran semua e-wallet / mobile banking yang mendukung QRIS</p><p><strong>ID Pesanan: <span id="orderIdLabel">—</span></strong></p></div></div>
         <div class="payment-timer" id="paymentTimer" aria-live="polite"><span><b>Batas waktu pembayaran</b><br><small>Selesaikan pembayaran sebelum waktu habis</small></span><strong id="paymentCountdown">15:00</strong></div>
         <div class="qris-image-wrap">
           <img class="qris-image" src="qris.jpg" alt="QRIS pembayaran Tamzzy shop"
@@ -296,6 +323,9 @@ body{background:radial-gradient(ellipse at 12% 0%,#10396b 0,transparent 38%),rad
 </section>
 </div>
 </div>
+
+<button class="cs-float" id="csFloat" type="button" aria-label="Buka customer service" aria-expanded="false"><img src="cs-logo.png" alt="Logo customer service"></button>
+<section class="cs-pop" id="csPop" aria-label="Chat customer service Tamzzy Shop" hidden><div class="cs-pop-head"><img src="cs-logo.png" alt=""><div><strong>Tamzzy Assistant</strong><small>Customer support · FAQ</small></div><button class="cs-pop-close" id="csPopClose" type="button" aria-label="Tutup">×</button></div><div class="cs-chat-log" id="csChatLog" role="log" aria-live="polite"><div class="cs-msg bot">Halo! Aku asisten Tamzzy Shop. Tanyakan soal produk, pembayaran, promo, atau pesanan.</div></div><div class="cs-suggestions"><button type="button" data-chat-suggest="Cara bayar QRIS">Cara bayar</button><button type="button" data-chat-suggest="Kode promo">Kode promo</button></div><form class="cs-chat-form" id="csChatForm"><input id="csChatInput" autocomplete="off" maxlength="300" placeholder="Ketik pertanyaan..." aria-label="Ketik pertanyaan" required><button type="submit" aria-label="Kirim pesan">➤</button></form><small class="cs-chat-note">Asisten FAQ otomatis. Untuk bantuan khusus, minta kontak admin.</small></section>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <!-- Firebase compat SDK: aktifkan Authentication (Email/Password) dan Cloud Firestore di Firebase Console. -->
 <script>
@@ -316,6 +346,11 @@ const FIREBASE_CONFIG = {
 const WHATSAPP_ADMIN = "6285122688033";
 const $ = (selector) => document.querySelector(selector);
 let selectedProduct = null;
+let currentOrderId = "";
+const ORDER_STORAGE_KEY = "tamzzyShopOrders_v1";
+function readOrders(){try{return JSON.parse(localStorage.getItem(ORDER_STORAGE_KEY)||"{}")}catch{return {}}}
+function saveOrder(order){const orders=readOrders();orders[order.id]=order;try{localStorage.setItem(ORDER_STORAGE_KEY,JSON.stringify(orders))}catch{} }
+function makeOrderId(){return "TZ-"+Math.random().toString(36).slice(2,8).toUpperCase()}
 let cartCount = 0;
 let toastTimer = null;
 function showToast(message) {
@@ -341,7 +376,29 @@ function updateCart() {
   void cart.offsetWidth;
   cart.classList.add("bump");
 }
+function isStoreClosed(){
+  // Jam Indonesia Barat (UTC+7), tutup setiap hari pukul 06.00 sampai 12.30.
+  const now = new Date();
+  const minutes = (now.getUTCHours()+7)%24*60 + now.getUTCMinutes();
+  return minutes >= 360 && minutes < 750;
+}
+function updateStoreHours(){
+  const closed = isStoreClosed();
+  const notice = $("#storeHoursNotice");
+  notice.style.display = closed ? "flex" : "none";
+  $("#storeHoursTitle").textContent = closed ? "Toko sedang tutup" : "Toko sedang buka";
+  $("#storeHoursText").textContent = closed ? "Jam operasional setiap hari pukul 12.30–06.00 WIB. Pesanan bisa dilakukan saat toko buka." : "Toko buka. Silakan pilih produk dan lakukan pemesanan.";
+  document.querySelectorAll(".buy").forEach(button=>{
+    button.disabled=closed;
+    button.textContent=closed ? "Toko sedang tutup" : "Beli sekarang";
+    button.style.opacity=closed ? ".55" : "";
+    button.style.cursor=closed ? "not-allowed" : "";
+  });
+}
+updateStoreHours();
+setInterval(updateStoreHours,30000);
 function openCheckout(product, price) {
+  if(isStoreClosed()){showToast("Toko tutup pukul 06.00–12.30 WIB. Silakan kembali saat toko buka.");return;}
   if (!product) { showToast("Produk tidak ditemukan. Coba muat ulang halaman."); return; }
   selectedProduct = { name: product, price: Number(price) || 0 };
   cartCount = 1;
@@ -354,6 +411,7 @@ function openCheckout(product, price) {
   $("#paymentStage").classList.add("hidden");
   clearInterval(paymentTicker);
   paymentDeadline = 0;
+  currentOrderId = "";
   $(".panel-intro").textContent = "Isi data lalu lanjut ke pembayaran.";
   switchView("checkout");
   setTimeout(() => $("#fullName").focus({ preventScroll: true }), 350);
@@ -384,9 +442,9 @@ function checkoutPrice(){ return selectedProduct ? (isValidPromo() ? Math.round(
 function promoLabel(){ const code=getPromoCode(); return code && code.toLowerCase()===PROMO_CODE.toLowerCase() ? code : "Tidak digunakan"; }
 $("#promoCode").addEventListener("input", () => {
   const code=getPromoCode(), status=$("#promoStatus");
-  if(!code){status.textContent="";return;}
+  if(!code){status.textContent="Masukkan kode promo untuk mendapatkan diskon 10%."; if(selectedProduct) $("#summaryPrice").textContent=rupiah(selectedProduct.price); return;}
   const valid=code.toLowerCase()===PROMO_CODE.toLowerCase();
-  status.textContent=valid?"Kode promo aktif: diskon 10% untuk semua produk.":"Kode belum dikenali.";
+  status.textContent=valid?"Kode promo dikenali. Diskon 10% diterapkan.":"Kode tidak valid. Masukkan kode dari saluran WhatsApp untuk diskon 10%.";
   if(selectedProduct){
     $("#summaryPrice").textContent=rupiah(checkoutPrice());
   }
@@ -422,6 +480,9 @@ $("#checkoutForm").addEventListener("submit", (event) => {
   $("#buyerActions").classList.add("hidden");
   $("#buyerHint").classList.add("hidden");
   $("#paymentStage").classList.remove("hidden");
+  currentOrderId = makeOrderId();
+  saveOrder({id:currentOrderId,product:selectedProduct.name,amount:checkoutPrice(),createdAt:Date.now(),status:"Menunggu pembayaran",buyer:$("#fullName").value.trim()});
+  const orderLabel=document.querySelector("#orderIdLabel"); if(orderLabel) orderLabel.textContent=currentOrderId;
   startPaymentTimer();
   $(".panel-intro").textContent = "Periksa merchant dan nominal sebelum membayar.";
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -494,6 +555,7 @@ $("#paidConfirmBtn").addEventListener("click", () => {
     button.disabled = false;
     button.textContent = "Sudah bayar — konfirmasi melalui WhatsApp";
     $("#confirmState").classList.add("show");
+    if(currentOrderId){const orders=readOrders();if(orders[currentOrderId]){orders[currentOrderId].status="Menunggu verifikasi admin";orders[currentOrderId].updatedAt=Date.now();try{localStorage.setItem(ORDER_STORAGE_KEY,JSON.stringify(orders))}catch{}}}
     const message = "Halo Admin Tamzzy shop, saya sudah melakukan pembayaran dan ingin meminta verifikasi.\nNama: " + $("#fullName").value.trim() + "\nWhatsApp pembeli: " + $("#buyerPhone").value.trim() + "\nEmail: " + $("#buyerEmail").value.trim() + "\nProduk: " + selectedProduct.name + "\nNominal: " + rupiah(checkoutPrice()) + "\nKode promo: " + promoLabel() + "\nSaya akan melampirkan bukti transaksi di chat ini. Mohon verifikasi sebelum pesanan diproses.";
     openWhatsApp(message);
   }, 1100);
@@ -504,6 +566,110 @@ $("#recreateOrderBtn").addEventListener("click", () => {
   showToast("Sesi checkout dibuat ulang. Periksa QRIS resmi sebelum membayar.");
 });
 
+
+// In-page conversational FAQ assistant with 100 question phrasings.
+(()=>{
+ const launcher=document.getElementById('csFloat'),panel=document.getElementById('csPop'),close=document.getElementById('csPopClose'),log=document.getElementById('csChatLog'),form=document.getElementById('csChatForm'),input=document.getElementById('csChatInput');
+ if(!launcher||!panel||!log||!form||!input)return;
+ const setOpen=open=>{panel.hidden=!open;launcher.setAttribute('aria-expanded',String(open));if(open)setTimeout(()=>input.focus(),80);};
+ launcher.addEventListener('click',()=>setOpen(panel.hidden));close?.addEventListener('click',()=>setOpen(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
+ const answers={
+ payment:'Untuk membayar: pilih produk, tekan Beli sekarang, isi data checkout, lalu lanjut ke pembayaran. Scan QRIS dengan aplikasi yang mendukung QRIS. Periksa nama merchant dan nominal sebelum menyetujui transaksi.',
+ proof:'Setelah pembayaran berhasil, tekan tombol konfirmasi WhatsApp. Chat akan terbuka; lampirkan screenshot bukti transaksi secara manual lalu kirim kepada admin. Bukti tidak terkirim otomatis.',
+ promo:'Kode promo kamu: TamzzyXpalzzyShop. Masukkan kode ini di kolom promo saat checkout untuk mendapatkan diskon 10%, lalu pastikan total berubah sebelum membayar.',
+ product:'Produk yang tersedia: Alight Motion Premium, Script Alight Motion Premium (Bot), Akses Premium Bot Telegram, dan Script Bot AM Prem. Detail dan harga terbaru terlihat di katalog.',
+ price:'Harga katalog sudah menampilkan diskon 10%: AM Premium Rp4.500, akses premium bot Telegram Rp6.300, script bot AM (3 Juli) Rp9.000, dan script bot AM (1 September) Rp18.000. Periksa harga di checkout sebelum membayar.',
+ delivery:'Produk digital diproses setelah admin memeriksa pembayaran. Waktu pengiriman dapat berbeda; admin akan memberi kabar melalui WhatsApp.',
+ admin:'Untuk bantuan yang memerlukan pemeriksaan pesanan, hubungi admin WhatsApp melalui tombol konfirmasi pesanan di checkout atau kontak resmi toko yang tercantum di web.',
+ safety:'Jangan bagikan password, OTP, atau data sensitif. Periksa nama merchant dan nominal QRIS sebelum membayar. Admin tidak perlu meminta OTP atau password akun.',
+ fallback:'Aku belum menemukan jawaban yang tepat. Coba tanyakan tentang produk, harga, pembayaran QRIS, bukti bayar, kode promo, atau proses pengiriman. Untuk kasus khusus, hubungi admin.'
+ };
+ const answerVariants={
+  payment:[
+   'Untuk membayar, pilih produk lalu tekan Beli sekarang. Isi data checkout, lanjutkan ke QRIS, dan scan dengan aplikasi pembayaran yang mendukung QRIS. Cek merchant serta nominal sebelum konfirmasi.',
+   'Pembayaran dilakukan lewat QRIS di halaman checkout. Pilih produk, lengkapi data, scan QRIS, lalu pastikan nominal dan nama merchant benar sebelum membayar.',
+   'Caranya: buka katalog → Beli sekarang → isi data → scan QRIS. Setelah pembayaran, tekan konfirmasi WhatsApp dan kirim bukti transaksi ke admin.'
+  ],
+  proof:[
+   'Kalau sudah membayar, tekan tombol konfirmasi WhatsApp di checkout. Lampirkan screenshot bukti transaksi di chat lalu kirim ke admin. Bukti tidak terkirim otomatis.',
+   'Bukti bayar dikirim melalui WhatsApp: buka konfirmasi pesanan, tambahkan screenshot transaksi, lalu kirim. Admin akan memeriksa pembayaran.',
+   'Silakan kirim screenshot bukti pembayaran lewat chat WhatsApp admin setelah menekan tombol konfirmasi. Pastikan nominal dan waktu transaksi terlihat.'
+  ],
+  promo:[
+   'Kode promo: TamzzyXpalzzyShop. Masukkan kode ini saat checkout untuk diskon 10%, lalu pastikan total berubah sebelum membayar.',
+   'Ini kode promo Tamzzy Shop: TamzzyXpalzzyShop. Ketik persis di kolom kode promo saat checkout untuk mendapat potongan 10%.',
+   'Gunakan kode TamzzyXpalzzyShop saat checkout. Diskon 10% akan diterapkan jika kode valid; periksa total akhir sebelum membayar.'
+  ],
+  product:[
+   'Produk yang tersedia meliputi Alight Motion Premium, akses premium bot Telegram, Script Bot AM (3 Juli), dan Script Bot AM (1 September). Lihat katalog untuk detail.',
+   'Kamu bisa melihat produk digital yang tersedia di katalog Tamzzy Shop: AM Premium, akses premium bot Telegram, serta script bot AM. Pilih produk untuk detailnya.',
+   'Silakan cek katalog web untuk daftar produk dan keterangannya. Jika bingung memilih, tulis nama produk yang ingin kamu tanyakan.'
+  ],
+  price:[
+   'Harga promo 10% setelah kode valid: AM Premium Rp4.500, akses premium bot Telegram Rp6.300, script bot AM (3 Juli) Rp9.000, dan script bot AM (1 September) Rp18.000. Cek total checkout sebelum bayar.',
+   'Harga dapat dilihat di katalog. Diskon 10% diterapkan setelah memasukkan kode promo yang valid; pastikan harga akhir muncul di checkout.',
+   'Masukkan kode promo saat checkout untuk mendapatkan potongan 10%. Harga akhir akan ditampilkan sebelum kamu melakukan pembayaran.'
+  ],
+  delivery:[
+   'Produk digital diproses setelah admin memverifikasi pembayaran. Admin akan mengabari melalui WhatsApp; waktu proses bisa berbeda tergantung antrean.',
+   'Setelah bukti bayar dikirim, admin memeriksa transaksi lalu memproses produk. Pantau chat WhatsApp untuk kabar selanjutnya.',
+   'Pengiriman dilakukan secara digital setelah pembayaran terverifikasi. Jika belum ada kabar, hubungi admin melalui WhatsApp toko.'
+  ],
+  admin:[
+   'Untuk bantuan langsung, hubungi admin melalui tombol WhatsApp di web. Sertakan nama produk dan detail kendala, tetapi jangan kirim OTP atau password.',
+   'Kamu bisa menghubungi admin lewat WhatsApp toko. Jelaskan pertanyaan atau masalahnya agar admin dapat membantu.',
+   'Jika pertanyaanmu perlu pengecekan manual, lanjutkan ke WhatsApp admin dari web Tamzzy Shop.'
+  ],
+  safety:[
+   'Jaga keamanan akun: jangan pernah membagikan password atau OTP. Sebelum membayar, periksa nama merchant dan nominal QRIS.',
+   'Transaksi aman dimulai dengan mengecek merchant dan nominal. Admin tidak akan meminta password atau kode OTP kamu.',
+   'Jangan bagikan data rahasia. Gunakan QRIS yang tampil di checkout dan pastikan nominalnya sesuai pesanan.'
+  ]
+ };
+ const normalize=t=>t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ');
+ const topics=[
+  ['payment',['bayar','pembayaran','qris','scan','pembelian','transfer','dana','gopay','bank','m banking','mobile banking','nominal','merchant','cara bayar','metode']],
+  ['proof',['bukti','screenshot','ss','struk','konfirmasi','sudah bayar','udah bayar','kirim bukti','tf done']],
+  ['promo',['promo','kode','diskon','voucher','potongan','tamzzyxpalzzyshop','kupon']],
+  ['product',['produk','katalog','tersedia','jual','alight','motion','script','bot','telegram','prem','premium']],
+  ['price',['harga','berapa','rp','rupiah','murah','mahal','biaya','total']],
+  ['delivery',['proses','pengiriman','kapan','lama','aktivasi','diterima','selesai','akses']],
+  ['admin',['admin','cs','customer service','kontak','hubungi','respon','slow response','wa']],
+  ['safety',['aman','password','otp','penipuan','scam','privasi','data']],
+ ];
+ // 10 common ways to phrase each of 10 help topics = 100 FAQ question entries.
+ const questionForms=['Bagaimana cara {x}?','Bisa jelaskan {x}?','Saya ingin tahu tentang {x}.','Tolong bantu soal {x}.','Apa langkah untuk {x}?','Bagaimana kalau {x}?','Ada panduan {x}?','Saya bingung mengenai {x}.','Info {x}, dong.','Pertanyaan saya tentang {x}.'];
+ const labels={payment:'pembayaran QRIS',proof:'mengirim bukti pembayaran',promo:'kode promo',product:'produk yang tersedia',price:'harga produk',delivery:'proses dan pengiriman',admin:'menghubungi admin',safety:'keamanan transaksi',fallback:'bantuan toko'};
+ const faq100=[];topics.forEach(([key])=>questionForms.forEach(form=>faq100.push({q:form.replace('{x}',labels[key]),topic:key})));
+ const add=(text,who)=>{const el=document.createElement('div');el.className='cs-msg '+who;el.textContent=text;log.appendChild(el);log.scrollTop=log.scrollHeight;};
+ const reply=text=>{
+  const n=normalize(text).trim();
+  // Handle casual conversation first so greetings don't trigger FAQ keyword matching.
+  if(/^(hai|halo|hello|hi|hey|hei|assalamualaikum|salam|pagi|siang|sore|malam)(\s|$)/.test(n))
+    return 'Hai! Selamat datang di Tamzzy Shop. Ada yang bisa aku bantu? Kamu bisa tanya soal produk, harga, pembayaran QRIS, kode promo, atau proses pesanan.';
+  if(/^(makasih|terima kasih|thanks|thank you|thx)(\s|$)/.test(n))
+    return 'Sama-sama! Kalau masih ada yang ingin ditanyakan tentang Tamzzy Shop, langsung tulis saja ya.';
+  if(/^(dadah|bye|sampai jumpa|goodbye)(\s|$)/.test(n))
+    return 'Sampai jumpa! Terima kasih sudah berkunjung ke Tamzzy Shop.';
+  if(/^(kamu siapa|siapa kamu|ini bot|ini ai|nama kamu)(\s|$)/.test(n))
+    return 'Aku asisten virtual Tamzzy Shop. Aku bisa membantu menjawab pertanyaan umum tentang produk, harga, promo, pembayaran, dan pesanan.';
+  let key='fallback',best=0;
+  for(const [topic,words] of topics){
+   let score=words.reduce((sum,w)=>sum+(n.includes(normalize(w))?Math.max(1,normalize(w).length):0),0);
+   if(score>best){best=score;key=topic;}
+  }
+  const variants=answerVariants[key];
+  if(variants&&best>0)return variants[Math.floor(Math.random()*variants.length)];
+  return answers[key]||answers.fallback;
+ };
+ const send=text=>{const value=String(text||'').trim();if(!value)return;add(value,'user');input.value='';setTimeout(()=>add(reply(value),'bot'),250);};
+ form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});panel.querySelectorAll('[data-chat-suggest]').forEach(b=>b.addEventListener('click',()=>send(b.dataset.chatSuggest)));
+ // Keep the 100 FAQ phrasings available for matching/search suggestions without displaying a wall of text.
+ panel.dataset.faqCount=String(faq100.length);
+})();
+
+// Customer service answers common store questions; order tracking is removed.
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#39;"}[c]));}
 // FAQ accordion and checkout state polish.
 document.querySelectorAll(".faq-question").forEach((button) => {
   button.addEventListener("click", () => {
@@ -682,5 +848,44 @@ document.querySelectorAll(".faq-question").forEach((button) => {
 <script>
 (()=>{const layer=document.querySelector('.sparkle-layer');if(!layer)return;const symbols=['✨','✦','✧'];for(let i=0;i<18;i++){const el=document.createElement('span');el.className='sparkle';el.textContent=symbols[i%symbols.length];el.style.left=(Math.random()*100)+'%';el.style.setProperty('--dur',(7+Math.random()*8)+'s');el.style.setProperty('--delay',(-Math.random()*14)+'s');el.style.setProperty('--size',(12+Math.random()*18)+'px');el.style.setProperty('--drift',(-45+Math.random()*90)+'px');layer.appendChild(el);}})();
 </script>
+
+<style>
+#jakarta-time-widget{margin:10px auto 14px;max-width:500px;padding:12px 14px;border:1px solid rgba(90,160,255,.45);border-radius:14px;background:linear-gradient(135deg,rgba(9,25,54,.96),rgba(15,48,91,.9));box-shadow:0 0 24px rgba(40,130,255,.16);color:#f4f8ff;font-family:inherit}
+#jakarta-time-widget .jt-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+#jakarta-time-widget .jt-clock{font-size:clamp(22px,5vw,30px);font-weight:800;letter-spacing:1px;color:#8bc7ff;font-variant-numeric:tabular-nums}
+#jakarta-time-widget .jt-date{font-size:11px;color:#c5d8f3;margin-top:3px}
+#jakarta-time-widget .jt-badge{font-size:10px;border:1px solid #3976b8;border-radius:999px;padding:6px 10px;color:#bfe2ff}
+#jakarta-time-widget .jt-prayers{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:9px}
+#jakarta-time-widget .jt-prayer{background:rgba(255,255,255,.06);border:1px solid rgba(150,190,255,.13);border-radius:9px;text-align:center;padding:7px 3px}
+#jakarta-time-widget .jt-prayer strong{display:block;font-size:10px;color:#c5d8f3;margin-bottom:5px}
+#jakarta-time-widget .jt-prayer span{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+#jakarta-time-widget .jt-next{margin-top:8px;font-size:11px;color:#bfe2ff}
+@media(max-width:440px){#jakarta-time-widget{margin:8px 10px 12px;padding:10px}#jakarta-time-widget .jt-prayers{gap:5px}#jakarta-time-widget .jt-prayer{padding:9px 2px}#jakarta-time-widget .jt-prayer strong{font-size:10px}#jakarta-time-widget .jt-prayer span{font-size:12px}}
+</style>
+
+<script>
+(()=>{
+ const tz='Asia/Jakarta';
+ const clock=document.getElementById('jt-clock'), dateEl=document.getElementById('jt-date'), prayersEl=document.getElementById('jt-prayers'), nextEl=document.getElementById('jt-next');
+ const fmt=(opts)=>new Intl.DateTimeFormat('id-ID',{timeZone:tz,...opts});
+ function tick(){const now=new Date();clock.textContent=fmt({hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(now);dateEl.textContent=fmt({weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);}
+ tick();setInterval(tick,1000);
+ async function loadPrayer(){
+  const now=new Date();const parts=fmt({year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);const get=k=>parts.find(x=>x.type===k)?.value;
+  const y=get('year'),m=get('month'),d=get('day');
+  try{
+   const res=await fetch(`https://api.myquran.com/v2/sholat/jadwal/1301/${y}/${m}/${d}`);
+   if(!res.ok)throw new Error('API');const json=await res.json();const j=json.data.jadwal;
+   const items=[['Subuh',j.subuh],['Zuhur',j.dzuhur],['Asar',j. ashar],['Magrib',j.maghrib],['Isya',j.isya]];
+   prayersEl.innerHTML=items.map(([name,time])=>`<div class="jt-prayer"><strong>${name}</strong><span>${time||'--:--'}</span></div>`).join('');
+   const mins= t=>{const [h,mi]=t.split(':').map(Number);return h*60+mi};const current=Number(fmt({hour:'2-digit',minute:'2-digit',hour12:false}).format(now).replace(':',''));
+   const currentMin=Math.floor(current/100)*60+current%100;let next=items.find(([n,t])=>mins(t)>currentMin);
+   nextEl.textContent=next?`Waktu salat berikutnya: ${next[0]} pukul ${next[1]} WIB`:'Waktu salat berikutnya: Subuh besok (jadwal diperbarui otomatis setiap hari).';
+  }catch(e){nextEl.textContent='Jadwal salat belum tersedia. Periksa koneksi internet.';}
+ }
+ loadPrayer();setInterval(loadPrayer,60*60*1000);
+})();
+</script>
+
 </body>
-    </html>
+</html>
