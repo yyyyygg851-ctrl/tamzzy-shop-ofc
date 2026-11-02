@@ -376,6 +376,7 @@ html,body{width:100%;max-width:100%;}
           <div class="qris-placeholder" id="qrisMissing" hidden><div><span class="notice-icon">!</span><strong>QRIS Tamzzy shop</strong><small>QRIS pembayaran akan tampil di area ini.</small></div></div>
         </div>
         <div class="qris-status">QRIS resmi Tamzzy Shop</div>
+        <button type="button" class="btn secondary" id="downloadQrisBtn" style="width:100%;margin-top:12px">Download QRIS</button>
         <div class="expired-box hidden" id="paymentExpired"><h3>Waktu pesanan berakhir</h3><p class="muted">Sesi checkout ini sudah habis. Buat ulang sesi pesanan sebelum melanjutkan. Jangan gunakan QRIS dari sesi yang sudah berakhir.</p><button type="button" class="btn primary" id="recreateOrderBtn">Buat ulang pesanan</button></div>
         <div class="payment-links">
           <div class="pay-pill"><span>GoPay</span>Scan QRIS</div>
@@ -391,7 +392,7 @@ html,body{width:100%;max-width:100%;}
             <div class="payment-step"><span class="step-number">4</span><div><strong>Kirim bukti ke admin</strong><p>Buka WhatsApp dan lampirkan bukti secara manual.</p></div></div>
           </div>
           <div class="warning admin-note"><b>!</b><div><strong>Pemberitahuan:</strong> Admin akan memproses setelah pembayaran diperiksa. Mohon hindari spam.</div></div>
-          <button type="button" class="btn primary proof-button" id="proofBtn">Kirim bukti pembayaran ke admin</button>
+          
           <button type="button" class="btn secondary proof-button" id="paidConfirmBtn">Sudah bayar — konfirmasi melalui WhatsApp</button>
           <div class="confirm-state" id="confirmState" role="status" aria-live="polite"><div class="confirm-check">✓</div><strong>Siap dikonfirmasi</strong><p class="payment-footnote">WhatsApp akan dibuka. Status ini bukan verifikasi pembayaran; admin tetap perlu memeriksa transaksi.</p></div>
           <button type="button" class="btn secondary cancel-payment" id="cancelPaymentBtn">Batalkan pembelian</button>
@@ -627,7 +628,6 @@ function setPaymentExpired(expired) {
   $("#qrisMissing").hidden = expired || !(image && image.dataset.qrisFailed === "true");
   document.querySelector(".payment-links").classList.toggle("hidden", expired);
   document.querySelector(".payment-guide").classList.toggle("hidden", expired);
-  $("#proofBtn").classList.toggle("hidden", expired);
   $("#paidConfirmBtn").classList.toggle("hidden", expired);
   if (expired) $("#paymentCountdown").textContent = "00:00";
 }
@@ -657,11 +657,14 @@ function isPaymentSessionActive() {
   }
   return true;
 }
-$("#proofBtn").addEventListener("click", () => {
-  if (!selectedProduct || !isPaymentSessionActive()) return;
-  const message = "Halo Admin Tamzzy shop, saya ingin mengirim bukti pembayaran.\nNama: " + $("#fullName").value.trim() + "\nProduk: " + selectedProduct.name + "\nNominal: " + rupiah(checkoutPrice()) + "\nKode promo: " + promoLabel() + "\nSaya akan melampirkan screenshot bukti transaksi di chat ini.";
-  openWhatsApp(message);
-  showToast("Lampirkan screenshot bukti secara manual di WhatsApp.");
+$("#downloadQrisBtn").addEventListener("click", () => {
+  const link = document.createElement("a");
+  link.href = "qris.jpg";
+  link.download = "Tamzzy-Shop-QRIS.jpg";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  showToast("QRIS mulai diunduh.");
 });
 $("#paidConfirmBtn").addEventListener("click", () => {
   if (!selectedProduct || !isPaymentSessionActive()) return;
@@ -847,7 +850,6 @@ document.querySelectorAll(".faq-question").forEach((button) => {
   document.addEventListener("click", (event) => {
     if (event.target.closest(".buy")) setStep(1);
     if (event.target.closest("#editDataBtn")) setStep(1);
-    if (event.target.closest("#proofBtn")) setStep(3);
   });
   document.querySelector("#checkoutForm")?.addEventListener("submit", () => setStep(2));
   document.querySelector("#backBtn")?.addEventListener("click", () => setStep(1));
