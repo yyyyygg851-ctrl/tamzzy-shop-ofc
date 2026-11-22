@@ -374,8 +374,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <form id="ownerLoginForm"><label class="owner-field">Kode owner<input id="ownerPin" type="password" autocomplete="current-password" placeholder="Kode akses" required></label><div class="owner-actions" style="margin-top:12px"><button class="btn primary" type="submit">Buka panel</button><button class="btn secondary" type="button" id="ownerCloseLogin">Tutup</button></div></form>
     <div class="owner-state">Akses owner dibatasi. Jangan bagikan kode akses kepada orang lain.</div>
   </div>
-  <div id="ownerDashboard" class="owner-hidden"><div class="eyebrow">Tamzzy shop · Owner dashboard</div><h2>Panel pengelolaan toko</h2><p class="sub">Pengumuman dan produk tersinkron ke semua pengunjung melalui Firebase setelah konfigurasi proyek diaktifkan.</p>
-    <div class="owner-grid" style="margin-bottom:12px"><label class="owner-field">Email admin Firebase<input id="firebaseAdminEmail" type="email" autocomplete="username" placeholder="email admin"></label><label class="owner-field">Password admin Firebase<input id="firebaseAdminPassword" type="password" autocomplete="current-password" placeholder="password Firebase"></label></div><div class="owner-actions" style="margin-bottom:12px"><button class="btn secondary" type="button" id="firebaseLoginBtn">Login admin online</button><button class="btn secondary" type="button" id="firebaseLogoutBtn">Logout admin online</button></div>
+  <div id="ownerDashboard" class="owner-hidden"><div class="eyebrow">Tamzzy shop · Owner dashboard</div><h2>Panel pengelolaan toko</h2><p class="sub">Pengaturan produk dan pengumuman tersimpan di browser ini.</p>
     <div class="owner-grid">
       <label class="owner-field">Nama produk 1<input id="ownerName1" maxlength="90"></label><label class="owner-field">Harga produk 1 (angka rupiah)<input id="ownerPrice1" type="number" min="0" step="500"></label>
       <label class="owner-field">Nama produk 2<input id="ownerName2" maxlength="90"></label><label class="owner-field">Harga produk 2 (angka rupiah)<input id="ownerPrice2" type="number" min="0" step="500"></label>
@@ -385,7 +384,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     </div>
     <div class="owner-actions"><button class="btn primary" type="button" id="ownerSaveBtn">Simpan perubahan</button><button class="btn secondary" type="button" id="ownerResetBtn">Reset bawaan</button><button class="btn secondary" type="button" id="ownerLogoutBtn">Kunci panel</button></div>
     <div class="owner-state" id="ownerStatus" role="status">Panel siap.</div>
-    <div class="owner-state"><strong>Status sinkronisasi:</strong> <span id="firebaseSyncStatus">Memeriksa konfigurasi Firebase...</span><br>PIN panel hanyalah lapisan tampilan. Simpan perubahan online hanya tersedia setelah login memakai akun admin Firebase.</div>
+    <div class="owner-state">Pengaturan tersimpan secara lokal di browser/perangkat ini. Perubahan tidak otomatis muncul di perangkat pengunjung lain.</div>
   </div>
 </section>
 </div>
@@ -394,22 +393,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <button class="cs-float" id="csFloat" type="button" aria-label="Buka customer service" aria-expanded="false"><img src="cs-logo.png" alt="Logo customer service"></button>
 <section class="cs-pop" id="csPop" aria-label="Chat customer service Tamzzy Shop" hidden><div class="cs-pop-head"><img src="cs-logo.png" alt=""><div><strong>Tamzzy Assistant</strong><small>Customer support · FAQ</small></div><button class="cs-pop-close" id="csPopClose" type="button" aria-label="Tutup">×</button></div><div class="cs-chat-log" id="csChatLog" role="log" aria-live="polite"><div class="cs-msg bot">Halo! Aku asisten Tamzzy Shop. Tanyakan soal produk, pembayaran, promo, atau pesanan.</div></div><div class="cs-suggestions"><button type="button" data-chat-suggest="Cara bayar QRIS">Cara bayar</button><button type="button" data-chat-suggest="Kode promo">Kode promo</button></div><form class="cs-chat-form" id="csChatForm"><input id="csChatInput" autocomplete="off" maxlength="300" placeholder="Ketik pertanyaan..." aria-label="Ketik pertanyaan" required><button type="submit" aria-label="Kirim pesan">➤</button></form><small class="cs-chat-note">Asisten FAQ otomatis. Untuk bantuan khusus, minta kontak admin.</small></section>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<!-- Firebase compat SDK: aktifkan Authentication (Email/Password) dan Cloud Firestore di Firebase Console. -->
 <script>
 (()=>{const overlay=document.getElementById('promoOverlay'),close=document.getElementById('promoClose');if(!overlay||!close)return;const dismiss=()=>{overlay.hidden=true;};close.addEventListener('click',dismiss);overlay.addEventListener('click',e=>{if(e.target===overlay)dismiss();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)dismiss();});})();
 </script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script>
-const FIREBASE_CONFIG = {
-  apiKey: "GANTI_DENGAN_API_KEY",
-  authDomain: "GANTI_PROJECT_ID.firebaseapp.com",
-  projectId: "GANTI_PROJECT_ID",
-  storageBucket: "GANTI_PROJECT_ID.appspot.com",
-  messagingSenderId: "GANTI_SENDER_ID",
-  appId: "GANTI_APP_ID"
-};
 const WHATSAPP_ADMIN = "6285122688033";
 const $ = (selector) => document.querySelector(selector);
 let selectedProduct = null;
@@ -616,7 +603,7 @@ $("#recreateOrderBtn").addEventListener("click", () => {
  proof:'Setelah pembayaran berhasil, tekan tombol konfirmasi WhatsApp. Chat akan terbuka; lampirkan screenshot bukti transaksi secara manual lalu kirim kepada admin. Bukti tidak terkirim otomatis.',
  promo:'Kode promo kamu: TamzzyXpalzzyShop. Masukkan kode ini di kolom promo saat checkout untuk mendapatkan diskon 10%, lalu pastikan total berubah sebelum membayar.',
  product:'Produk yang tersedia: Alight Motion Premium, Script Alight Motion Premium (Bot), Akses Premium Bot Telegram, dan Script Bot AM Prem. Detail dan harga terbaru terlihat di katalog.',
- price:'Harga katalog sudah menampilkan diskon 10%: AM Premium Rp4.500, akses premium bot Telegram Rp6.300, script bot AM (3 Juli) Rp9.000, dan script bot AM (1 September) Rp18.000. Periksa harga di checkout sebelum membayar.',
+ price:'Harga terbaru setiap produk mengikuti katalog. Periksa harga yang tampil di katalog dan checkout sebelum membayar.',
  delivery:'Produk digital diproses setelah admin memeriksa pembayaran. Waktu pengiriman dapat berbeda; admin akan memberi kabar melalui WhatsApp.',
  admin:'Untuk bantuan yang memerlukan pemeriksaan pesanan, hubungi admin WhatsApp melalui tombol konfirmasi pesanan di checkout atau kontak resmi toko yang tercantum di web.',
  safety:'Jangan bagikan password, OTP, atau data sensitif. Periksa nama merchant dan nominal QRIS sebelum membayar. Admin tidak perlu meminta OTP atau password akun.',
@@ -644,7 +631,7 @@ $("#recreateOrderBtn").addEventListener("click", () => {
    'Silakan cek katalog web untuk daftar produk dan keterangannya. Jika bingung memilih, tulis nama produk yang ingin kamu tanyakan.'
   ],
   price:[
-   'Harga promo 10% setelah kode valid: AM Premium Rp4.500, akses premium bot Telegram Rp6.300, script bot AM (3 Juli) Rp9.000, dan script bot AM (1 September) Rp18.000. Cek total checkout sebelum bayar.',
+   'Harga promo akan dihitung otomatis setelah kode promo valid. Cek total checkout sebelum membayar.',
    'Harga dapat dilihat di katalog. Diskon 10% diterapkan setelah memasukkan kode promo yang valid; pastikan harga akhir muncul di checkout.',
    'Masukkan kode promo saat checkout untuk mendapatkan potongan 10%. Harga akhir akan ditampilkan sebelum kamu melakukan pembayaran.'
   ],
@@ -754,7 +741,7 @@ document.querySelectorAll(".faq-question").forEach((button) => {
   document.querySelector("#cancelPaymentBtn")?.addEventListener("click", () => setStep(1));
 })();
 
-// Command Owner + Firebase real-time sync.
+// Command Owner — penyimpanan lokal browser, tanpa layanan eksternal.
 (() => {
   const defaults = [
     {name:'Alight Motion Premium', price:3000},
@@ -764,18 +751,24 @@ document.querySelectorAll(".faq-question").forEach((button) => {
   ];
   const panel = $('#ownerPanel'), login = $('#ownerLogin'), dashboard = $('#ownerDashboard');
   const storageKey = 'tamzzyShopOwnerSettingsV1';
-  const pinCode = String.fromCharCode(50, 53, 56, 48); // PIN tampilan lama; bukan keamanan server.
-  let db = null, auth = null, remoteReady = false, applyingRemote = false;
-  const status = (msg) => { const el=$('#firebaseSyncStatus'); if(el) el.textContent=msg; };
-  function validFirebaseConfig(){ return FIREBASE_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY' && FIREBASE_CONFIG.projectId !== 'GANTI_PROJECT_ID'; }
+  const pinCode = String.fromCharCode(50, 53, 56, 48); // PIN lama dipertahankan.
   function readSettings() {
-    try { const parsed=JSON.parse(localStorage.getItem(storageKey)||'null'); if(parsed && Array.isArray(parsed.products)) return parsed; } catch(_) {}
+    try {
+      const parsed=JSON.parse(localStorage.getItem(storageKey)||'null');
+      if(parsed && Array.isArray(parsed.products)) {
+        // Harga Alight Motion terbaru: Rp3.000, termasuk untuk data lokal versi lama.
+        if(parsed.products[0]) parsed.products[0] = {...parsed.products[0], price:3000};
+        localStorage.setItem(storageKey, JSON.stringify(parsed));
+        return parsed;
+      }
+    } catch(_) {}
     return {products:defaults.map(x=>({...x})),announcement:''};
   }
   function applySettings(settings) {
     document.querySelectorAll('.product').forEach((card,i)=>{
-      const item=settings.products?.[i]||defaults[i], title=card.querySelector('h3'), price=card.querySelector('.price'), buy=card.querySelector('.buy');
-      if(title) title.textContent=item.name; if(price) price.textContent=item.price>0?rupiah(item.price):'Konfirmasi harga';
+      const item=settings.products?.[i]||defaults[i], title=card.querySelector('h3'), price=card.querySelector('.price-new'), buy=card.querySelector('.buy');
+      if(title) title.textContent=item.name;
+      if(price) price.textContent=item.price>0?rupiah(item.price):'Konfirmasi harga';
       if(buy){buy.dataset.product=item.name;buy.dataset.price=String(item.price||0);}
     });
     let banner=$('#ownerAnnouncementBanner');
@@ -796,47 +789,24 @@ document.querySelectorAll(".faq-question").forEach((button) => {
   function openPanel(){panel.classList.remove('owner-hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});}
   $('#ownerOpenBtn').addEventListener('click',()=>{openPanel();login.classList.remove('owner-hidden');dashboard.classList.add('owner-hidden');$('#ownerPin').focus();});
   $('#ownerCloseLogin').addEventListener('click',()=>panel.classList.add('owner-hidden'));
-  $('#ownerLoginForm').addEventListener('submit',event=>{event.preventDefault();if($('#ownerPin').value!==pinCode){showToast('Kode owner salah.');$('#ownerPin').select();return;}login.classList.add('owner-hidden');dashboard.classList.remove('owner-hidden');fillForm(readSettings());showToast('Panel terbuka. Login Firebase diperlukan untuk menyimpan online.');});
+  $('#ownerLoginForm').addEventListener('submit',event=>{event.preventDefault();if($('#ownerPin').value!==pinCode){showToast('Kode owner salah.');$('#ownerPin').select();return;}login.classList.add('owner-hidden');dashboard.classList.remove('owner-hidden');fillForm(readSettings());showToast('Panel owner terbuka.');});
   function collectSettings(){return {products:defaults.map((item,i)=>({name:($('#ownerName'+(i+1)).value.trim()||item.name).slice(0,90),price:Math.max(0,Number.parseInt($('#ownerPrice'+(i+1)).value,10)||0)})),announcement:$('#ownerAnnouncement').value.trim().slice(0,350),updatedAt:Date.now()};}
-  $('#firebaseLoginBtn').addEventListener('click',async()=>{
-    if(!auth){showToast('Isi konfigurasi Firebase terlebih dahulu.');return;}
-    const email=$('#firebaseAdminEmail').value.trim(),password=$('#firebaseAdminPassword').value;
-    if(!email||!password){showToast('Isi email dan password admin Firebase.');return;}
-    try{await auth.signInWithEmailAndPassword(email,password);status('Login admin berhasil. Sinkronisasi aktif.');showToast('Login admin online berhasil.');}
-    catch(e){status('Login gagal: '+(e.code||e.message));showToast('Login Firebase gagal. Periksa akun dan konfigurasi.');}
-  });
-  $('#firebaseLogoutBtn').addEventListener('click',async()=>{try{if(auth)await auth.signOut();status('Logout admin. Pengumuman tetap tersinkron untuk pengunjung.');}catch(e){status('Logout gagal.');}});
-  $('#ownerSaveBtn').addEventListener('click',async()=>{
+  $('#ownerSaveBtn').addEventListener('click',()=>{
     const settings=collectSettings();
     try{localStorage.setItem(storageKey,JSON.stringify(settings));}catch(_){}
     applySettings(settings);
-    if(!db||!auth){$('#ownerStatus').textContent='Tersimpan lokal saja. Konfigurasi Firebase belum diisi.';showToast('Belum online: konfigurasi Firebase belum aktif.');return;}
-    if(!auth.currentUser){$('#ownerStatus').textContent='Belum tersimpan online. Login admin Firebase dahulu.';showToast('Login admin Firebase dahulu.');return;}
-    try{await db.collection('storeConfig').doc('public').set({products:settings.products,announcement:settings.announcement,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});$('#ownerStatus').textContent='Tersimpan online. Semua pengunjung menerima perubahan secara real-time.';showToast('Pengumuman tersinkron ke semua perangkat.');}
-    catch(e){$('#ownerStatus').textContent='Gagal menyimpan online: '+(e.code||e.message);showToast('Gagal sinkron. Periksa Firestore Rules.');}
+    $('#ownerStatus').textContent='Tersimpan di browser ini. Perangkat lain tidak menerima perubahan otomatis.';
+    showToast('Pengaturan disimpan di perangkat ini.');
   });
-  $('#ownerResetBtn').addEventListener('click',async()=>{
+  $('#ownerResetBtn').addEventListener('click',()=>{
     if(!confirm('Reset nama, harga, dan pengumuman ke bawaan?'))return;
-    const settings={products:defaults.map(x=>({...x})),announcement:''};fillForm(settings);applySettings(settings);
+    const settings={products:defaults.map(x=>({...x})),announcement:''};
+    fillForm(settings);applySettings(settings);
     try{localStorage.removeItem(storageKey);}catch(_){}
-    if(db&&auth?.currentUser){try{await db.collection('storeConfig').doc('public').set({products:settings.products,announcement:'',updatedAt:firebase.firestore.FieldValue.serverTimestamp()});$('#ownerStatus').textContent='Pengaturan bawaan tersimpan online.';}catch(e){$('#ownerStatus').textContent='Reset lokal; online gagal: '+(e.code||e.message);}}
-    else $('#ownerStatus').textContent='Reset hanya lokal. Login admin Firebase untuk menyinkronkan reset.';
+    $('#ownerStatus').textContent='Pengaturan bawaan dipulihkan di browser ini.';
   });
   $('#ownerLogoutBtn').addEventListener('click',()=>{dashboard.classList.add('owner-hidden');login.classList.remove('owner-hidden');$('#ownerPin').value='';panel.scrollIntoView({behavior:'smooth',block:'start'});});
   applySettings(readSettings()); fillForm(readSettings());
-  if(!validFirebaseConfig()||!window.firebase){status('Belum dikonfigurasi. Isi FIREBASE_CONFIG di index.html dan deploy ulang.');return;}
-  try{
-    firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();db=firebase.firestore();remoteReady=true;
-    status('Menghubungkan ke Firebase...');
-    db.collection('storeConfig').doc('public').onSnapshot(doc=>{
-      if(!doc.exists){status('Firebase aktif. Belum ada pengaturan online; pengaturan lokal ditampilkan.');return;}
-      const data=doc.data()||{}, settings={products:Array.isArray(data.products)?data.products:defaults,announcement:typeof data.announcement==='string'?data.announcement:''};
-      applyingRemote=true;applySettings(settings);try{localStorage.setItem(storageKey,JSON.stringify(settings));}catch(_){};
-      if(!dashboard.classList.contains('owner-hidden'))fillForm(settings);
-      applyingRemote=false;status('Online: pengumuman dan produk tersinkron real-time.');
-    },err=>status('Gagal membaca Firestore: '+(err.code||err.message)));
-    auth.onAuthStateChanged(user=>status(user?'Login admin aktif. Sinkronisasi real-time aktif.':'Terhubung. Login admin Firebase untuk menyimpan perubahan.'));
-  }catch(e){status('Firebase gagal dimulai: '+(e.code||e.message));}
 })();
 
 // Ambient particles and touch burst effects.
